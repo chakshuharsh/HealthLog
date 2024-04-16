@@ -1,3 +1,38 @@
 <resources>
     <string name="app_name">HealthLog</string>
+
+
+    // common
+
+    <string name="Email">Email</string>
+    <string name="Back_To_Login">Back to log in</string>
+    <string name="Click_here">Click here</string>
+
+
+   //for EmailInput Screen
+    <string name="Create_Account">Create an account</string>
+    <string name="Forgot_Password">Forgot Password</string>
+    <string name="No_worries">Now worries, we will send you reset instructions. </string>
+    <string name="Reset_Password">Reset Password</string>
+
+
+  //for password reset screen
+
+
+
+
+    // for code verification screen
+    <string name="Password_reset">Password reset</string>
+    <string name="Code_sent">We sent a code to </string>
+    <string name="Continue">Continue</string>
+    <string name="Received">Didn\'t receive the email?</string>
+
+
+    // for photo upload screen
+    <string name="Open_camera">Open camera</string>
+    <string name="Open_gallery">Open gallery</string>
+    <string name="Upload">Upload</string>
+    <string name="profile_photo">Pick a profile photo!</string>
+
+
 </resources>

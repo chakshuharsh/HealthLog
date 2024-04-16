@@ -1,4 +1,4 @@
-package com.example.healthlog.ui_authentication.screens
+package com.example.healthlog.ui_authentication.screens.login
 
 
 import androidx.compose.foundation.clickable
@@ -15,6 +15,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -25,25 +28,43 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import com.example.healthlog.R
+import com.example.healthlog.core.NavigationManager
+import com.example.healthlog.core.Screen
 
 
-
-
-
-
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun LoginScreen(){
+fun LoginScreen(navigationManager: NavigationManager){
+
+    val viewModel = remember{LoginScreenViewModel()}
     val emailState=remember{mutableStateOf("")}
     val passwordState=remember{mutableStateOf("")}
-    var isClicked:Boolean by remember { mutableStateOf(false) }// scrap remove it in  production
+    val passwordFocusRequester = remember { FocusRequester() }
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
+    var passwordVisibility by remember { mutableStateOf(true) }
+
 
     Column(
         modifier = Modifier
@@ -62,19 +83,20 @@ fun LoginScreen(){
             Spacer(modifier = Modifier.height(15.dp))
 
             Text(
-                text = "Sign In", fontSize = 30.sp, color = Color.Black,
+                text = "Hello Again!", fontSize = 30.sp, color = Color.Black,
                 textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
             // We missed you so much text
             Text(
-                text = "Hi! Welcome back, you have been missed",
+                text = "Welcome back, you have been missed",
                 color = Color.Gray,
                 modifier = Modifier
                     .padding(top = 8.dp)
                     .align(Alignment.CenterHorizontally),
-                fontSize = 10.sp,
+                fontSize = 15.sp,
                 textAlign = TextAlign.Center
             )
 
@@ -99,9 +121,13 @@ fun LoginScreen(){
                 placeholder = { Text("example@gmail.com") },
                 textStyle = LocalTextStyle.current.copy(color = Color.Black),
                 singleLine = true,
-                shape = RoundedCornerShape(8.dp),
-                keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
-                keyboardActions = KeyboardActions(onNext = { /* Move focus to password field */ })
+                shape = RoundedCornerShape(20.dp),
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Next,
+                    keyboardType = KeyboardType.Email,
+                    autoCorrect = false,
+                ),
+                keyboardActions = KeyboardActions(onNext = { passwordFocusRequester.requestFocus() })
             )
 
             Text(
@@ -115,15 +141,42 @@ fun LoginScreen(){
 
             OutlinedTextField(
                 value = passwordState.value,
-                onValueChange = { passwordState.value = it },
+                onValueChange = { newValue:String ->
+                    passwordState.value = newValue // Update the passwordState value
+                },
                 modifier = Modifier
+                    .focusRequester(passwordFocusRequester)
                     .fillMaxWidth()
                     .width(100.dp),
                 textStyle = LocalTextStyle.current.copy(color = Color.Black),
                 singleLine = true,
-                shape = RoundedCornerShape(8.dp),
-                keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
-                keyboardActions = KeyboardActions(onNext = { /* Move focus to password field */ })
+                shape = RoundedCornerShape(20.dp),
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.Done,
+                    autoCorrect = false,
+                    keyboardType = KeyboardType.Password,
+                ),
+                trailingIcon = {
+                    IconButton(onClick = {
+                        passwordVisibility = !passwordVisibility
+                    })
+                    {
+                        val icon: Painter = if (passwordVisibility) {
+                            painterResource(id = R.drawable.visibilityopen)
+                        } else {
+                            painterResource(id = R.drawable.visibility_off)
+                        }
+                        Icon(painter = icon, contentDescription = "Toggle visibility")
+                    }
+                },
+
+                keyboardActions = KeyboardActions(onDone = {
+                    keyboardController?.hide()
+                    focusManager.clearFocus()
+                }),
+                visualTransformation = if (passwordVisibility) VisualTransformation.None
+                else PasswordVisualTransformation()
+
             )
 
             Spacer(modifier = Modifier.height(15.dp))
@@ -132,19 +185,23 @@ fun LoginScreen(){
             Text(
                 text = "Forgot Password",
                 modifier = Modifier
-                    .clickable(onClick = { isClicked = true })
+                    .clickable(onClick = { navigationManager.navigateToEmailInput() })
                     .align(Alignment.End),
                 color = Color.Blue,
             )
             Spacer(modifier = Modifier.height(20.dp))
             Button(
-                onClick = { isClicked = false },
+                onClick = { viewModel.login(emailState.value,passwordState.value,navigationManager)},
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4169E1)),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
-                    .clip(RoundedCornerShape(16.dp)) // Adjust corner radius as needed
+                    .padding(16.dp),
+                        shape = RoundedCornerShape(8.dp), // Adjust corner radius as needed
             ) {
-                Text(text = "Sign In")
+                Text(
+                    text = "Sign In",
+                    fontSize=20.sp
+                )
             }
             Spacer(modifier = Modifier.height(50.dp))
 
@@ -160,7 +217,7 @@ fun LoginScreen(){
             Text(
                 text = "Sign Up",
                 color = Color.Blue,
-                modifier = Modifier.clickable(onClick = { isClicked = false })
+                modifier = Modifier.clickable(onClick = {navigationManager.navigateToSignup()})
 
             )
         }
@@ -171,8 +228,3 @@ fun LoginScreen(){
 
 
 
-@Preview
-@Composable
-fun PreviewLoginScreen() {
-    LoginScreen()
-}
