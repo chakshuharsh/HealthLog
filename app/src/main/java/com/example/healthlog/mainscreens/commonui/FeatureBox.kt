@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
 
 import androidx.compose.material3.Text
 
@@ -37,7 +38,8 @@ fun FeatureBox(
             .fillMaxWidth(),
         //make it clickable and pass a onClick lambda
         // do something for colors
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp),
+//        colors = CardColors(contentColor = myColor, containerColor = Color.BLUE, disabledContainerColor = androidx.compose.ui.graphics.Color.Gray, disabledContentColor = Color.BLACK)
 
     ) {
 
