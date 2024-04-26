@@ -10,9 +10,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.example.healthlog" />
-                  <option name="mobileSdkAppId" value="1:145533867282:android:5046229314c529c7b3cfcb" />
-                  <option name="projectId" value="healthlog-30f10" />
-                  <option name="projectNumber" value="145533867282" />
+                  <option name="mobileSdkAppId" value="1:278421480561:android:28db96a6c79adae24867d0" />
+                  <option name="projectId" value="healthlog-e9b74" />
+                  <option name="projectNumber" value="278421480561" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

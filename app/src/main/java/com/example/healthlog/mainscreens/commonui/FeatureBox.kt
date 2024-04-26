@@ -2,6 +2,7 @@ package com.example.healthlog.mainscreens.commonui
 
 import android.graphics.Color
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,17 +26,20 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.healthlog.core.NavigationManager
 
 @Composable
 fun FeatureBox(
     featureText: String,
     image: ImageBitmap,
+    onClick:()-> Unit
 
 ) {
 
     Card(
         modifier = Modifier.padding(8.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable { onClick() },
         //make it clickable and pass a onClick lambda
         // do something for colors
         shape = RoundedCornerShape(8.dp),
@@ -53,7 +57,7 @@ fun FeatureBox(
                 style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold),
                 color = androidx.compose.ui.graphics.Color.Blue
             )
-            Spacer(modifier = Modifier.width(50.dp))
+            Spacer(modifier = Modifier.width(170.dp))
 
             Image(
                 bitmap = image,

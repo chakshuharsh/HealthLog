@@ -57,7 +57,7 @@ import com.example.healthlog.core.Screen
 @Composable
 fun LoginScreen(navigationManager: NavigationManager){
 
-    val viewModel = remember{LoginScreenViewModel()}
+    val viewModel = remember{LoginScreenViewModel(navigationManager)}
     val emailState=remember{mutableStateOf("")}
     val passwordState=remember{mutableStateOf("")}
     val passwordFocusRequester = remember { FocusRequester() }

@@ -1,5 +1,6 @@
 package com.example.healthlog.mainscreens.commonui
 
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
@@ -14,18 +15,25 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import com.example.healthlog.core.NavigationManager
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreenTopBar(
-    title:String,
-    scrollBehavior: TopAppBarScrollBehavior
+
+    title:String, // pass this title as user's name
+    scrollBehavior: TopAppBarScrollBehavior,
 //    onBackClick:()->Unit,
 //    onMenuClick:()-> Unit
+    navigationManager: NavigationManager
 ){
-
+    val lightBlue = Color(0xFF4169E1)
     CenterAlignedTopAppBar(
         title = {
         Text(
@@ -36,14 +44,15 @@ fun MainScreenTopBar(
 
     },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            titleContentColor = MaterialTheme.colorScheme.primary,
+            containerColor = lightBlue,
+            titleContentColor = Color.White,
         ),
         navigationIcon = {
-            IconButton(onClick = { /* do something */ }) {
+            IconButton(onClick = { navigationManager.navigateToBackStack() }) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Icon for back navigation"
+                    contentDescription = "Icon for back navigation",
+
                 )
             }
         },
@@ -57,6 +66,8 @@ fun MainScreenTopBar(
             }
         },
         scrollBehavior = scrollBehavior,
-    )
+        modifier = Modifier.height(65.dp)
+        )
+
 
 }

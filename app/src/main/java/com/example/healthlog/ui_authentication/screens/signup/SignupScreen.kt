@@ -145,7 +145,7 @@ var showError by remember{mutableStateOf(false)}
                 imeAction = ImeAction.Next,
                 autoCorrect = false,
                 keyboardType = KeyboardType.Text,
-                capitalization = KeyboardCapitalization.Characters,
+
             ),
             keyboardActions = KeyboardActions(
                 onNext = {
@@ -265,7 +265,9 @@ var showError by remember{mutableStateOf(false)}
                 if(nameState.value.isEmpty()){
                     nameFocusRequester.requestFocus()
                 }
-
+else{
+    viewModel.signUp(emailState.value,passwordState.value,nameState.value)
+                }
 
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4169E1)),

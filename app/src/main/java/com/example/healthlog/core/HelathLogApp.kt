@@ -4,7 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+
+
 import com.example.healthlog.mainscreens.HomeScreen.HomeScreen
+import com.example.healthlog.mainscreens.InterestsScreen.InterestsScreen
+import com.example.healthlog.mainscreens.features.FeatureListScreen
+import com.example.healthlog.mainscreens.features.featuresScreen.Vaccine.NewVaccineScreen
+
 import com.example.healthlog.ui_authentication.screens.forgotpassword.emailVerification.EmailInput
 import com.example.healthlog.ui_authentication.screens.login.LoginScreen
 import com.example.healthlog.ui_authentication.screens.signup.PhotoUploadScreen
@@ -13,9 +19,14 @@ import com.example.healthlog.ui_authentication.screens.signup.SignupScreen
 sealed class Screen(val route: String) {
     object Login : Screen("login")
     object Signup : Screen("signup")
-    object Home : Screen("home")
+
     object EmailInput:Screen("emailInput")
     object ProfileUpload:Screen("profileUpload")
+    object HomeScreen:Screen("homescreen")
+    object InterestsScreen:Screen("interestscreen")
+    object FeatureScreen:Screen("featurescreen")
+
+    object NewVaccineScreen:Screen("newvaccinescreen")
 }
 
 
@@ -29,14 +40,24 @@ fun HealthLogApp(navController: NavHostController,navigationManager: NavigationM
             composable(Screen.Signup.route) {
                 SignupScreen(navigationManager)
             }
-            composable(Screen.Home.route) {
-                HomeScreen(navigationManager)
-            }
+
             composable(Screen.EmailInput.route){
                 EmailInput(navigationManager)
             }
             composable(Screen.ProfileUpload.route){
                 PhotoUploadScreen(navigationManager)
+            }
+            composable(Screen.HomeScreen.route){
+                HomeScreen(navigationManager)
+            }
+            composable(Screen.FeatureScreen.route){
+                FeatureListScreen(navigationManager)
+            }
+            composable(Screen.InterestsScreen.route){
+                InterestsScreen(navigationManager)
+            }
+            composable(Screen.NewVaccineScreen.route){
+                NewVaccineScreen(navigationManager)
             }
 
         }

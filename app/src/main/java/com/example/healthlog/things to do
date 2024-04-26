@@ -1,0 +1,11 @@
+// Make a sliding animation for bottom bar
+// Change the color scheme for card in feature screen
+ // for individual feature screen
+    -> creating calendar
+    ->developing other features screen
+    -> creating two screen new and previous for every feature
+    -> strategy for navigation and networking(Coroutines)
+    -> finalizing after auth and signing up
+
+
+->I want this code to be reusable as I need it in  many screens

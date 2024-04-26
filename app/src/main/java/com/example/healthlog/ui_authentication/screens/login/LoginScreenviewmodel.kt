@@ -1,16 +1,17 @@
 package com.example.healthlog.ui_authentication.screens.login
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavHostController
+
 import com.example.healthlog.core.HealthogAppState
 import com.example.healthlog.core.NavigationManager
-import com.example.healthlog.core.Screen
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class LoginScreenViewModel(): ViewModel(){
+class LoginScreenViewModel(navigationManager: NavigationManager): ViewModel(){
 
     private val auth = HealthogAppState.auth
 
@@ -21,19 +22,27 @@ viewModelScope.launch(Dispatchers.IO) {
     try {
 
         val authResult = auth.signInWithEmailAndPassword(email, password).await()
-       if(authResult.user!=null) {
 
+        if(authResult.user!=null) {
+val user =auth.currentUser
+            HealthogAppState.uid=user?.uid?:""
            HealthogAppState.isUserLoggedIn = true
-navigationManager.navigateToHome()
+
+            Log.d("Login", "User logged in with UID: ${HealthogAppState.uid}")
+
+            Log.d("Navigation", "Navigation is success")
+
        }
     else{
         HealthogAppState.isUserLoggedIn=false
+
        }
     }
     catch (e:Exception){
         HealthogAppState.isUserLoggedIn=false
     }
     }
+        navigationManager.navigateToNewVaccineScreen()
     }
 
 

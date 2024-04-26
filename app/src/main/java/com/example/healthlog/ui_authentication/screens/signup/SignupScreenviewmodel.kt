@@ -2,14 +2,15 @@ package com.example.healthlog.ui_authentication.screens.signup
 
 
 import android.annotation.SuppressLint
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import android.util.Log
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavHostController
+
 import com.example.healthlog.core.HealthogAppState
-import com.example.healthlog.core.Screen
-import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+
 import kotlinx.coroutines.Dispatchers
 
 import kotlinx.coroutines.launch
@@ -18,10 +19,13 @@ import kotlinx.coroutines.tasks.await
 class SignupScreenViewModel() :ViewModel() {
 
 
-    private val auth = HealthogAppState.auth
 
 
-    private val usersCollection = HealthogAppState.usersCollection
+
+     // Lazy initialization
+
+    val auth = HealthogAppState.auth
+     val usersCollection = HealthogAppState.usersCollection
 
     var isUserExists: Boolean = false
 
@@ -37,8 +41,10 @@ class SignupScreenViewModel() :ViewModel() {
             try {
 
 
+
                 val authResult = auth.createUserWithEmailAndPassword(email, password).await()
 
+                Log.d("collectino","IsSone")
 
                 val uid = authResult.user?.uid
 
@@ -49,10 +55,12 @@ class SignupScreenViewModel() :ViewModel() {
                             "email" to email,
                         )
                         usersCollection.document(email).set(user).await()
+                        Log.d("Database", "Database reference: ${usersCollection.document(email).path}")
 
                     }
 
                     HealthogAppState.isUserLoggedIn = authResult.user != null
+
 
 
 

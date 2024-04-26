@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "145533867282",
-    "project_id": "healthlog-30f10",
-    "storage_bucket": "healthlog-30f10.appspot.com"
+    "project_number": "278421480561",
+    "project_id": "healthlog-e9b74",
+    "storage_bucket": "healthlog-e9b74.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:145533867282:android:5046229314c529c7b3cfcb",
+        "mobilesdk_app_id": "1:278421480561:android:28db96a6c79adae24867d0",
         "android_client_info": {
           "package_name": "com.example.healthlog"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBKQ1W1o-gaxekeOFNs7gZt0QGHSH-DOR4"
+          "current_key": "AIzaSyDkq1VeuvdV9uxoPdEQY3sXgR9PqjwMQe0"
         }
       ],
       "services": {
