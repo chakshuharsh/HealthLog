@@ -20,7 +20,7 @@ import com.example.healthlog.core.HealthogAppState
 import com.example.healthlog.core.NavigationManager
 import com.example.healthlog.mainscreens.commonui.BottomBar
 import com.example.healthlog.mainscreens.commonui.MainScreenTopBar
-
+import com.example.healthlog.mainscreens.commonui.topBarForFeatures
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,8 +40,10 @@ val viewModel:HomeScreenViewModel = remember{HomeScreenViewModel()}
     // home.svg  screen would display the recent data -> medication, docs, everythin else and the third section will be about sharing that data I guesss but we cann shif that to second one only
 Scaffold(
     topBar = {
-        MainScreenTopBar(title ="userName", scrollBehavior = topBarScrollBehavior,navigationManager)
-    },
+//        MainScreenTopBar(title ="userName", scrollBehavior = topBarScrollBehavior,navigationManager)
+    topBarForFeatures(navigationManager)
+             },
+
     bottomBar = {
         BottomBar(navigationManager)
     }

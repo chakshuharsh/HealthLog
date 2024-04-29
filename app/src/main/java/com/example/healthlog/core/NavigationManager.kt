@@ -48,6 +48,21 @@ class NavigationManager(private val navController: NavHostController) {
 
     fun navigateToNewVaccineScreen(){
         navController.navigate(Screen.NewVaccineScreen.route)
+        navController.popBackStack(Screen.NewVaccineScreen.route, inclusive = false)
     }
 
+    fun navigateToAllergyScreen(){
+        navController.navigate(Screen.AllergyScreen.route)
+        navController.popBackStack(Screen.AllergyScreen.route, inclusive = false)
+    }
+
+    fun navigateToOxygenScreen(){
+        navController.navigate(Screen.OxygenScreen.route)
+        navController.popBackStack(Screen.OxygenScreen.route, inclusive = false)
+    }
+
+    fun navigateToBloodPressureScreen(){
+        navController.navigate(Screen.BloodPressureScreen.route)
+        navController.popBackStack(Screen.BloodPressureScreen.route, inclusive = false)
+    }
 }

@@ -34,6 +34,7 @@ fun MainScreenTopBar(
     navigationManager: NavigationManager
 ){
     val lightBlue = Color(0xFF4169E1)
+    val mainScreenTopBarColor = Color(34,48,91)
     CenterAlignedTopAppBar(
         title = {
         Text(
@@ -44,7 +45,7 @@ fun MainScreenTopBar(
 
     },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = lightBlue,
+            containerColor = mainScreenTopBarColor,
             titleContentColor = Color.White,
         ),
         navigationIcon = {

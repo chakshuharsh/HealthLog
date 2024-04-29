@@ -9,6 +9,9 @@ import androidx.navigation.compose.composable
 import com.example.healthlog.mainscreens.HomeScreen.HomeScreen
 import com.example.healthlog.mainscreens.InterestsScreen.InterestsScreen
 import com.example.healthlog.mainscreens.features.FeatureListScreen
+import com.example.healthlog.mainscreens.features.featuresScreen.Allergy.AllergyScreen
+import com.example.healthlog.mainscreens.features.featuresScreen.BloodPressure.BloodPressureScreen
+import com.example.healthlog.mainscreens.features.featuresScreen.Oxygen.OxygenScreen
 import com.example.healthlog.mainscreens.features.featuresScreen.Vaccine.NewVaccineScreen
 
 import com.example.healthlog.ui_authentication.screens.forgotpassword.emailVerification.EmailInput
@@ -27,6 +30,13 @@ sealed class Screen(val route: String) {
     object FeatureScreen:Screen("featurescreen")
 
     object NewVaccineScreen:Screen("newvaccinescreen")
+
+    object AllergyScreen:Screen("allergyscreen")
+
+    object  OxygenScreen:Screen("oxygenscreen")
+
+    object  BloodPressureScreen:Screen("bloodpressurescreen")
+
 }
 
 
@@ -59,6 +69,17 @@ fun HealthLogApp(navController: NavHostController,navigationManager: NavigationM
             composable(Screen.NewVaccineScreen.route){
                 NewVaccineScreen(navigationManager)
             }
+            composable(Screen.AllergyScreen.route){
+                AllergyScreen(navigationManager)
+            }
+            composable(Screen.OxygenScreen.route){
+                OxygenScreen(navigationManager)
+            }
+            composable(Screen.BloodPressureScreen.route){
+                BloodPressureScreen(navigationManager)
+            }
+
+
 
         }
     }

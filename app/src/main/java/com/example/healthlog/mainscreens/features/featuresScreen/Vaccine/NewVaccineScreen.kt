@@ -57,6 +57,7 @@ import com.example.healthlog.R
 import com.example.healthlog.core.HealthogAppState
 import com.example.healthlog.core.NavigationManager
 import com.example.healthlog.mainscreens.commonui.BottomBar
+import com.example.healthlog.mainscreens.commonui.CommonCard
 import com.example.healthlog.mainscreens.commonui.topBarForFeatures
 import com.example.healthlog.ui_authentication.screens.login.LoginScreenViewModel
 import java.text.SimpleDateFormat
@@ -73,7 +74,7 @@ fun NewVaccineScreen(navigationManager: NavigationManager){
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
 
-     val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+     val dateFormatter = SimpleDateFormat("d MMM yyyy", Locale.getDefault())
 val email = HealthogAppState.email
 
     val datePickerState = rememberDatePickerState(initialSelectedDateMillis = System.currentTimeMillis())
@@ -86,19 +87,22 @@ val email = HealthogAppState.email
 
 
     var vaccineState = remember { mutableStateOf("") }
-    var  isVaccineEmpty = vaccineState.value.isEmpty()
-    val lightBlue = Color(0xFF4169E1)
 
+
+var isButtonEnabled= remember{mutableStateOf(false)}
 
     var openDialog = remember{mutableStateOf(false)}
 
-val userNameState = remember{mutableStateOf("Loading...")}
+    isButtonEnabled.value=vaccineState.value.isEmpty()
 
-    LaunchedEffect(email){
-        viewModel.getUserName(email) { userName ->
-            userNameState.value = userName
-        }
-    }
+    val realBlueColor = Color(74,86,119)
+
+
+//    LaunchedEffect(email){
+//        viewModel.getUserDetails(email) { userName ->
+//            userNameState.value = userName
+//        }
+//    }
 
 
     Scaffold(
@@ -115,37 +119,7 @@ val userNameState = remember{mutableStateOf("Loading...")}
         .fillMaxWidth()
     ) {
 
-        Card(
-            modifier = Modifier.height(50.dp),
-            colors = CardColors(containerColor = lightBlue, contentColor = Color.White, disabledContainerColor = Color.Gray, disabledContentColor = Color.Gray),
-            shape = RoundedCornerShape(0.dp)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-//                horizontalArrangement = Arrangement.SpaceBetween,
-
-            ) {
-                TextButton(onClick = {  },
-
-                ) {
-                    Text(text ="NEW",
-                        maxLines = 1,
-                        fontSize = 20.sp,
-                        color = Color.White
-                    )
-                }
-                Spacer(modifier = Modifier.width(130.dp))
-                TextButton(onClick = {  },
-                    ) {
-                    Text(text ="PREVIOUS",
-                        maxLines = 1,
-                        fontSize = 20.sp,
-                        modifier =Modifier.padding(start=35.dp),
-                    color = Color.White
-                    )
-                }
-            }
-        }  // contains two buttons for new and previous
+        CommonCard()
 
         Spacer(modifier = Modifier.height(40.dp))
 
@@ -260,30 +234,32 @@ DatePickerDialog(
 
 
         }
-        Spacer(modifier = Modifier.height(16.dp))
-
+        Spacer(modifier = Modifier.height(230.dp))
         Button(
             onClick = { /*TODO*/ },
             colors = ButtonColors(
-                containerColor = lightBlue,
+                containerColor = realBlueColor,
                 contentColor = Color.White,
                 disabledContainerColor = Color.Gray,
                 disabledContentColor = Color.Cyan
             ),
-            enabled =!isVaccineEmpty,
+            enabled = !isButtonEnabled.value,
             modifier = Modifier
-                .padding(start = 245.dp)
-                .width(100.dp),
-            shape = RoundedCornerShape(10.dp)
+                .padding(start = 15.dp, end = 15.dp)
+                .width(350.dp),
+            shape = RoundedCornerShape(20.dp)
 
         ) {
-
             Text(
-                text = userNameState.value
+                text = "SAVE",
+                fontSize = 21.sp,
+                letterSpacing = 10.sp
             )
-Log.d("username","$userNameState.value")
+
 
         }
+
+
 
 
 

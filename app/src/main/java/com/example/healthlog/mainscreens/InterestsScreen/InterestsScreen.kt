@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import com.example.healthlog.core.NavigationManager
 import com.example.healthlog.mainscreens.commonui.BottomBar
 import com.example.healthlog.mainscreens.commonui.MainScreenTopBar
+import com.example.healthlog.mainscreens.commonui.topBarForFeatures
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -19,8 +20,9 @@ fun InterestsScreen(navigationManager: NavigationManager){
     val topBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     Scaffold(
         topBar = {
-            MainScreenTopBar("Username", scrollBehavior = topBarScrollBehavior,navigationManager)
-        },
+//            MainScreenTopBar("Username", scrollBehavior = topBarScrollBehavior,navigationManager)
+        topBarForFeatures(navigationManager)
+                 },
         bottomBar = {
             BottomBar(navigationManager)
         }
