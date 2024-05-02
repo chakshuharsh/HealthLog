@@ -40,7 +40,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
@@ -54,20 +53,19 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.example.healthlog.R
+import com.example.healthlog.core.HealthLogAppState
 import com.example.healthlog.core.NavigationManager
-import com.example.healthlog.core.Screen
 
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun LoginScreen(navigationManager: NavigationManager) {
+fun LoginScreen( navigationManager: NavigationManager) {
 
-    val viewModel = remember { LoginScreenViewModel(navigationManager) }
+
+    val viewModel = remember { LoginScreenViewModel() }
     val emailState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
     val passwordFocusRequester = remember { FocusRequester() }
@@ -243,6 +241,7 @@ Spacer(modifier=Modifier.height(8.dp))
                         Button(
                             onClick = {
                                 viewModel.login(
+
                                     emailState.value,
                                     passwordState.value,
                                     navigationManager

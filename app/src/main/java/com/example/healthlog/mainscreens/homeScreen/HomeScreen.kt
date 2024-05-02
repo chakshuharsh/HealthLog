@@ -1,4 +1,4 @@
-package com.example.healthlog.mainscreens.HomeScreen
+package com.example.healthlog.mainscreens.homeScreen
 
 
 
@@ -14,21 +14,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 
-import com.example.healthlog.core.HealthogAppState
+import com.example.healthlog.core.HealthLogAppState
 
 
 import com.example.healthlog.core.NavigationManager
 import com.example.healthlog.mainscreens.commonui.BottomBar
-import com.example.healthlog.mainscreens.commonui.MainScreenTopBar
 import com.example.healthlog.mainscreens.commonui.topBarForFeatures
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navigationManager: NavigationManager){
+fun HomeScreen( navigationManager: NavigationManager){
     val topBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-val uid = HealthogAppState.uid
-val viewModel:HomeScreenViewModel = remember{HomeScreenViewModel()}
+
 
 
 

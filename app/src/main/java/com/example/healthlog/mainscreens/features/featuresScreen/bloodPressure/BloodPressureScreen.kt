@@ -1,4 +1,4 @@
-package com.example.healthlog.mainscreens.features.featuresScreen.BloodPressure
+package com.example.healthlog.mainscreens.features.featuresScreen.bloodPressure
 
 
 import androidx.compose.foundation.background
@@ -29,12 +29,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -48,6 +46,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.healthlog.core.HealthLogAppState
+
 import com.example.healthlog.core.NavigationManager
 import com.example.healthlog.mainscreens.commonui.BottomBar
 import com.example.healthlog.mainscreens.commonui.CommonCard
@@ -59,7 +59,7 @@ import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BloodPressureScreen(navigationManager: NavigationManager) {
+fun BloodPressureScreen( navigationManager: NavigationManager) {
 
 
     val keyboardController = LocalSoftwareKeyboardController.current

@@ -1,7 +1,6 @@
-package com.example.healthlog.mainscreens.features.featuresScreen.Vaccine
+package com.example.healthlog.mainscreens.features.featuresScreen.vaccine
 
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 
@@ -21,8 +20,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -34,7 +31,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -52,14 +48,13 @@ import androidx.compose.ui.text.input.KeyboardType
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
 import com.example.healthlog.R
-import com.example.healthlog.core.HealthogAppState
+import com.example.healthlog.core.HealthLogAppState
+
 import com.example.healthlog.core.NavigationManager
 import com.example.healthlog.mainscreens.commonui.BottomBar
 import com.example.healthlog.mainscreens.commonui.CommonCard
 import com.example.healthlog.mainscreens.commonui.topBarForFeatures
-import com.example.healthlog.ui_authentication.screens.login.LoginScreenViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -67,7 +62,7 @@ import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NewVaccineScreen(navigationManager: NavigationManager){
+fun NewVaccineScreen( navigationManager: NavigationManager){
 
     val viewModel = remember{VaccineScreenViewModel()}
 
@@ -75,7 +70,7 @@ fun NewVaccineScreen(navigationManager: NavigationManager){
     val focusManager = LocalFocusManager.current
 
      val dateFormatter = SimpleDateFormat("d MMM yyyy", Locale.getDefault())
-val email = HealthogAppState.email
+
 
     val datePickerState = rememberDatePickerState(initialSelectedDateMillis = System.currentTimeMillis())
 
@@ -236,7 +231,7 @@ DatePickerDialog(
         }
         Spacer(modifier = Modifier.height(230.dp))
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { viewModel.saveUserData(selectedDateInMillis,vaccineState.value) },
             colors = ButtonColors(
                 containerColor = realBlueColor,
                 contentColor = Color.White,

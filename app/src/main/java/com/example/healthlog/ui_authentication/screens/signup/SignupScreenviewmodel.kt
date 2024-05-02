@@ -6,10 +6,8 @@ import android.util.Log
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.healthlog.core.HealthLogAppState
 
-import com.example.healthlog.core.HealthogAppState
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 
 import kotlinx.coroutines.Dispatchers
 
@@ -23,9 +21,8 @@ class SignupScreenViewModel() :ViewModel() {
 
 
      // Lazy initialization
-
-    val auth = HealthogAppState.auth
-     val usersCollection = HealthogAppState.usersCollection
+     val auth = HealthLogAppState.auth
+    val usersCollection = HealthLogAppState.usersCollection
 
     var isUserExists: Boolean = false
 
@@ -33,6 +30,7 @@ class SignupScreenViewModel() :ViewModel() {
 
     @SuppressLint("SuspiciousIndentation")
     fun signUp(
+
         email: String,
         password: String,
         name: String
@@ -42,9 +40,10 @@ class SignupScreenViewModel() :ViewModel() {
 
 
 
+
                 val authResult = auth.createUserWithEmailAndPassword(email, password).await()
 
-                Log.d("collectino","IsSone")
+                Log.d("collection","IsDone")
 
                 val uid = authResult.user?.uid
 
@@ -59,7 +58,7 @@ class SignupScreenViewModel() :ViewModel() {
 
                     }
 
-                    HealthogAppState.isUserLoggedIn = authResult.user != null
+                HealthLogAppState.isUserLoggedIn = authResult.user != null
 
 
 
@@ -78,9 +77,10 @@ class SignupScreenViewModel() :ViewModel() {
 
     fun doesUserExist(email: String,password: String,name: String){
 
+
         viewModelScope.launch {
 
-            val userDocument =  usersCollection.document(email).get().await()
+            val userDocument =  HealthLogAppState.usersCollection.document(email).get().await()
 
             if(userDocument.exists()){
                 isUserExists = true

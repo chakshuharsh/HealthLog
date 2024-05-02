@@ -19,9 +19,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Snackbar
-import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -39,13 +36,12 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.example.healthlog.R
+
 import com.example.healthlog.core.NavigationManager
-import com.example.healthlog.ui_authentication.screens.signup.SignupScreenViewModel
+import com.example.healthlog.core.HealthLogAppState
 import com.example.healthlog.ui_authentication.screens.signup.isEmailValid
 
 
@@ -57,7 +53,7 @@ import com.example.healthlog.ui_authentication.screens.signup.isEmailValid
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun EmailInput(navigationManager: NavigationManager){
+fun EmailInput( navigationManager: NavigationManager){
     val viewModel = remember { EmailVerificationViewModel() }
     var emailStateVerificatrion = remember { mutableStateOf("") }
 

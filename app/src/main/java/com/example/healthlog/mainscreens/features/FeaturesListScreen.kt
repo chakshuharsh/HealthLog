@@ -6,14 +6,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.imageResource
 import com.example.healthlog.R
 import com.example.healthlog.core.NavigationManager
+import com.example.healthlog.core.HealthLogAppState
 import com.example.healthlog.mainscreens.commonui.BottomBar
 import com.example.healthlog.mainscreens.commonui.FeatureBox
-import com.example.healthlog.mainscreens.commonui.MainScreenTopBar
 import com.example.healthlog.mainscreens.commonui.topBarForFeatures
 
 // prescription
@@ -35,7 +34,7 @@ data class Feature(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FeatureListScreen(navigationManager: NavigationManager){
+fun FeatureListScreen( navigationManager: NavigationManager){
 
     val topBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 

@@ -1,4 +1,4 @@
-package com.example.healthlog.mainscreens.features.featuresScreen.Allergy
+package com.example.healthlog.mainscreens.features.featuresScreen.allergy
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -17,8 +17,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -45,8 +43,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.healthlog.R
-import com.example.healthlog.core.HealthogAppState
 import com.example.healthlog.core.NavigationManager
+import com.example.healthlog.core.HealthLogAppState
 import com.example.healthlog.mainscreens.commonui.BottomBar
 import com.example.healthlog.mainscreens.commonui.CommonCard
 import com.example.healthlog.mainscreens.commonui.topBarForFeatures
@@ -56,7 +54,7 @@ import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AllergyScreen(navigationManager: NavigationManager){
+fun AllergyScreen( navigationManager: NavigationManager){
 
     var allergyState = remember { mutableStateOf("") }
     var  isAllergyEmpty = allergyState.value.isEmpty()

@@ -6,44 +6,45 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
 
-import com.example.healthlog.mainscreens.HomeScreen.HomeScreen
-import com.example.healthlog.mainscreens.InterestsScreen.InterestsScreen
+import com.example.healthlog.mainscreens.homeScreen.HomeScreen
+import com.example.healthlog.mainscreens.interestsScreen.InterestsScreen
 import com.example.healthlog.mainscreens.features.FeatureListScreen
-import com.example.healthlog.mainscreens.features.featuresScreen.Allergy.AllergyScreen
-import com.example.healthlog.mainscreens.features.featuresScreen.BloodPressure.BloodPressureScreen
-import com.example.healthlog.mainscreens.features.featuresScreen.Oxygen.OxygenScreen
-import com.example.healthlog.mainscreens.features.featuresScreen.Vaccine.NewVaccineScreen
+import com.example.healthlog.mainscreens.features.featuresScreen.allergy.AllergyScreen
+import com.example.healthlog.mainscreens.features.featuresScreen.bloodPressure.BloodPressureScreen
+import com.example.healthlog.mainscreens.features.featuresScreen.oxygen.OxygenScreen
+import com.example.healthlog.mainscreens.features.featuresScreen.vaccine.NewVaccineScreen
 
 import com.example.healthlog.ui_authentication.screens.forgotpassword.emailVerification.EmailInput
 import com.example.healthlog.ui_authentication.screens.login.LoginScreen
-import com.example.healthlog.ui_authentication.screens.signup.PhotoUploadScreen
 import com.example.healthlog.ui_authentication.screens.signup.SignupScreen
 
 sealed class Screen(val route: String) {
-    object Login : Screen("login")
-    object Signup : Screen("signup")
+    data object Login : Screen("login")
+    data object Signup : Screen("signup")
 
-    object EmailInput:Screen("emailInput")
-    object ProfileUpload:Screen("profileUpload")
-    object HomeScreen:Screen("homescreen")
-    object InterestsScreen:Screen("interestscreen")
-    object FeatureScreen:Screen("featurescreen")
+    data object EmailInput:Screen("emailInput")
+    data object ProfileUpload:Screen("profileUpload")
+    data object HomeScreen:Screen("homescreen")
+    data object InterestsScreen:Screen("interestscreen")
+    data object FeatureScreen:Screen("featurescreen")
 
-    object NewVaccineScreen:Screen("newvaccinescreen")
+    data object NewVaccineScreen:Screen("newvaccinescreen")
 
-    object AllergyScreen:Screen("allergyscreen")
+    data object AllergyScreen:Screen("allergyscreen")
 
-    object  OxygenScreen:Screen("oxygenscreen")
+    data object  OxygenScreen:Screen("oxygenscreen")
 
-    object  BloodPressureScreen:Screen("bloodpressurescreen")
+    data object  BloodPressureScreen:Screen("bloodpressurescreen")
 
 }
 
 
 @Composable
-fun HealthLogApp(navController: NavHostController,navigationManager: NavigationManager){
+fun HealthLogApp(navController: NavHostController,navigationManager: NavigationManager,appState:HealthLogAppState){
 
-        NavHost(navController, startDestination = Screen.Login.route) {
+    val startDestination = if(appState.isUserLoggedIn) Screen.HomeScreen.route else Screen.Login.route
+
+        NavHost(navController, startDestination = startDestination) {
             composable(Screen.Login.route) {
                 LoginScreen(navigationManager)
             }
@@ -54,9 +55,9 @@ fun HealthLogApp(navController: NavHostController,navigationManager: NavigationM
             composable(Screen.EmailInput.route){
                 EmailInput(navigationManager)
             }
-            composable(Screen.ProfileUpload.route){
-                PhotoUploadScreen(navigationManager)
-            }
+//            composable(Screen.ProfileUpload.route){
+//                PhotoUploadScreen(HealthLogAppState,navigationManager)
+//            }
             composable(Screen.HomeScreen.route){
                 HomeScreen(navigationManager)
             }

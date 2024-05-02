@@ -8,8 +8,9 @@ import androidx.navigation.NavHostController
 class NavigationManager(private val navController: NavHostController) {
 
     fun navigateToLogin() {
-        navController.navigate(Screen.Login.route)
         navController.popBackStack(Screen.Login.route, inclusive = true)
+        navController.navigate(Screen.Login.route)
+
 
     }
 
