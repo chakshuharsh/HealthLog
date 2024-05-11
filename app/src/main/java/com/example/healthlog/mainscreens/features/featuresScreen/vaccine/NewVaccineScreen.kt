@@ -20,6 +20,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.Card
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -49,11 +50,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.healthlog.R
-import com.example.healthlog.core.HealthLogAppState
 
 import com.example.healthlog.core.NavigationManager
 import com.example.healthlog.mainscreens.commonui.BottomBar
 import com.example.healthlog.mainscreens.commonui.CommonCard
+import com.example.healthlog.mainscreens.commonui.CommonCardNew
 import com.example.healthlog.mainscreens.commonui.topBarForFeatures
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -113,8 +114,11 @@ var isButtonEnabled= remember{mutableStateOf(false)}
         .padding(innerpadding)
         .fillMaxWidth()
     ) {
-
-        CommonCard()
+        Spacer(modifier = Modifier.height(30.dp))
+        CommonCardNew(
+            onNewClick = {navigationManager.navigateToNewVaccineScreen()},
+            onPreviousClick = {navigationManager.navigateToPreviousVaccineScreen()},
+        )
 
         Spacer(modifier = Modifier.height(40.dp))
 
@@ -213,25 +217,32 @@ DatePickerDialog(
     )
 
             }
-            Text(
-                text = formattedDate,
-                fontSize = 18.sp,
-                color = Color.Black,
-                modifier = Modifier
-                    .padding(16.dp)
-                    .clickable { openDialog.value = true }
-            )
+Spacer(modifier = Modifier.width(13.dp))
 
+Card(
+modifier = Modifier.height(52.dp).clickable { openDialog.value = true }
+) {
+    Text(
+        text = formattedDate,
+        fontSize = 18.sp,
+        color = Color.Black,
+        modifier = Modifier
+            .padding(16.dp)
 
+    )
+
+}
 
 
 
 
 
         }
-        Spacer(modifier = Modifier.height(230.dp))
+        Spacer(modifier = Modifier.height(190.dp))
         Button(
-            onClick = { viewModel.saveUserData(selectedDateInMillis,vaccineState.value) },
+            onClick = { viewModel.saveVaccineData(selectedDateInMillis,vaccineState.value)
+                vaccineState.value = ""
+                datePickerState.selectedDateMillis = System.currentTimeMillis()},
             colors = ButtonColors(
                 containerColor = realBlueColor,
                 contentColor = Color.White,
@@ -240,7 +251,7 @@ DatePickerDialog(
             ),
             enabled = !isButtonEnabled.value,
             modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp)
+                .padding(start = 15.dp, end = 10.dp)
                 .width(350.dp),
             shape = RoundedCornerShape(20.dp)
 

@@ -31,39 +31,21 @@ import com.example.healthlog.networking.Article
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InterestsScreen( navigationManager: NavigationManager){
-    val topBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-    val viewModel = remember { InerestsScreenViewModel() }
+   val viewModel = remember { InterestsScreenViewModel() }
 
-    val country = remember { mutableStateOf("us") } // Default country
-    val observer = Observer<List<Article>> { news ->
-        // Handle changes in the LiveData
-        val firstArticleTitle = news?.firstOrNull()?.description
-        if (firstArticleTitle != null) {
-            Log.d("Exists?","YES")
-            // Update UI or perform other actions with the first article title
-        } else {
-            // Handle the case where there are no articles
-            Log.d("Exists?","NO")
-        }
-        // For example, update UI or perform other actions
-        // Here, you can update the state or perform any necessary operations
-    }
-//    val news by viewModel.news.observeForever(emptyList<Article>())
-//val isNewsEmpty = news.value?.isNotEmpty()
-    val news =viewModel.news.observeForever(observer)
 
-    DisposableEffect(key1 = viewModel) {
-        viewModel.news.observeForever(observer)
+    val newsList = remember { mutableStateOf<List<Article>>(emptyList()) } // Store the fetched news articles
 
-        onDispose {
-            viewModel.news.removeObserver(observer)
-        }
+    viewModel.news.observeForever { response ->
+Log.d("data success?","$response")
+        newsList.value = response?.articles?: emptyList()
+
+
     }
 
     Scaffold(
         topBar = {
-//            MainScreenTopBar("Username", scrollBehavior = topBarScrollBehavior,navigationManager)
-        topBarForFeatures(navigationManager)
+             topBarForFeatures(navigationManager)
                  },
         bottomBar = {
             BottomBar(navigationManager)
@@ -73,7 +55,7 @@ fun InterestsScreen( navigationManager: NavigationManager){
             Text(text = "hello this is Interests screen")
 
         Button(
-            onClick = {viewModel.fetchNews(country.value)}
+            onClick = {viewModel.fetchNews()}
         ){
             Text(
                 text = "Fetch"
@@ -85,12 +67,9 @@ fun InterestsScreen( navigationManager: NavigationManager){
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-//                Text(
-//                    text = "First Article Title: ${firstArticleTitle ?: "Loading..."}",
-//                    fontWeight = FontWeight.Bold,
-//                    modifier = Modifier.padding(16.dp)
-//                )
+            ) {newsList.value.forEach { article ->
+                NewsItem(article = article)
+            }
             }
 
 
@@ -105,9 +84,9 @@ fun NewsItem(article: Article) {
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
-        Text(text = article.title, fontWeight = FontWeight.Bold)
+        Text(text = article.title.toString(), fontWeight = FontWeight.Bold)
         if (!article.description.isNullOrBlank()) {
-            Text(text = article.description, fontWeight = FontWeight.Normal)
+            Text(text = article.title.toString(), fontWeight = FontWeight.Normal)
         }
         Spacer(modifier = Modifier.height(8.dp))
     }

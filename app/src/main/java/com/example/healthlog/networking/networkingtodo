@@ -1,0 +1,9 @@
+What are the things we have to fetch from the API
+- the title
+- the description
+- Image
+- url
+-Setting up the navigation from app to URI
+-handling the back navigation
+-Adding the network reading capabilities and showing error and loading messages while fetching data
+

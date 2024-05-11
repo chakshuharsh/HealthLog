@@ -13,6 +13,7 @@ import com.example.healthlog.core.HealthLogApp
 
 import com.example.healthlog.core.NavigationManager
 import com.example.healthlog.core.HealthLogAppState
+import com.example.healthlog.mainscreens.features.featuresScreen.vaccine.NewVaccineScreen
 
 
 class MainActivity : ComponentActivity() {

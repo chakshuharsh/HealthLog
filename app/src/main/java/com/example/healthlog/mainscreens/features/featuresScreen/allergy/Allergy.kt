@@ -47,7 +47,9 @@ import com.example.healthlog.core.NavigationManager
 import com.example.healthlog.core.HealthLogAppState
 import com.example.healthlog.mainscreens.commonui.BottomBar
 import com.example.healthlog.mainscreens.commonui.CommonCard
+import com.example.healthlog.mainscreens.commonui.CommonCardNew
 import com.example.healthlog.mainscreens.commonui.topBarForFeatures
+import com.example.healthlog.mainscreens.features.featuresScreen.vaccine.VaccineScreenViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -55,6 +57,9 @@ import java.util.Locale
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AllergyScreen( navigationManager: NavigationManager){
+
+
+    val viewModel = remember{ AllergyViewModel() }
 
     var allergyState = remember { mutableStateOf("") }
     var  isAllergyEmpty = allergyState.value.isEmpty()
@@ -86,7 +91,10 @@ fun AllergyScreen( navigationManager: NavigationManager){
             .padding(innerPadding)
             .fillMaxWidth()
         ) {
-           CommonCard()
+           CommonCardNew(
+               onNewClick = {navigationManager.navigateToAllergyScreen()},
+               onPreviousClick = {navigationManager.navigateToPreviousAllergyScreen()},
+           )
 
             Spacer(modifier = Modifier.height(40.dp))
 
@@ -203,7 +211,7 @@ fun AllergyScreen( navigationManager: NavigationManager){
             }
             Spacer(modifier = Modifier.height(250.dp))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {  viewModel.saveAllergyData(allergyState.value,selectedDateInMillis)},
                 colors = ButtonColors(
                     containerColor = realBlueColor,
                     contentColor = Color.White,

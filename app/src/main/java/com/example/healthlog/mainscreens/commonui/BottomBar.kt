@@ -1,6 +1,7 @@
 package com.example.healthlog.mainscreens.commonui
 
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,14 +9,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -28,8 +33,9 @@ import com.example.healthlog.core.NavigationManager
 
 @Composable
 fun BottomBar(navigationManager: NavigationManager){
-    val lightBlue = Color(0xFF4169E1)
+
     val bottomBarColor = Color(25, 25, 112)
+
 Card(
    colors= CardColors(containerColor = bottomBarColor, contentColor = Color.White, disabledContentColor = Color.Gray, disabledContainerColor = bottomBarColor),
             shape = RoundedCornerShape(16.dp),
@@ -42,9 +48,15 @@ Card(
                 modifier = Modifier.padding(start = 4.dp)
             ) {
                 Card(
+                    colors = CardDefaults.cardColors(containerColor = bottomBarColor),
+                    shape = CircleShape,
+
 
                 ) {
-                    IconButton(onClick = { navigationManager.navigateToHomeScreen() }) {
+                    IconButton(onClick = {
+                        navigationManager.navigateToHomeScreen()
+                   })
+                    {
                         Icon(
                             painter = painterResource(id = R.drawable.home,),
                             contentDescription = "Home Icon for bottom bar",
@@ -55,9 +67,13 @@ Card(
                 Spacer(modifier = Modifier.width(90.dp))
 
                 Card(
+                    colors = CardDefaults.cardColors(containerColor = bottomBarColor),
+                            shape = CircleShape,
 
                 ) {
-                    IconButton(onClick = { navigationManager.navigateToFeatureScreen() }) {
+                    IconButton(onClick = {
+                        navigationManager.navigateToFeatureScreen()
+                        }) {
                         Icon(
                             painter = painterResource(id = R.drawable.featureicon),
                             contentDescription = "Feature Icon",
@@ -68,9 +84,12 @@ Card(
                 Spacer(modifier = Modifier.width(90.dp))
 
                 Card(
-
+                    colors = CardDefaults.cardColors(containerColor = bottomBarColor),
+                    shape = CircleShape
                 ) {
-                    IconButton(onClick = { navigationManager.navigateToInterestsScreen() }) {
+                    IconButton(onClick = {
+                        navigationManager.navigateToInterestsScreen()
+                      }) {
                         Icon(
                             painter = painterResource(id = R.drawable.notifications),
                             contentDescription = "Feed icon",

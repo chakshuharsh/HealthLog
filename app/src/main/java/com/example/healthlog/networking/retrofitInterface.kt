@@ -1,12 +1,53 @@
 package com.example.healthlog.networking
 
+
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+ const val BASE_URL = "https://newsapi.org"
+ const val API_KEY = "8b0c0bf0d3954af3a5a55bfa98867006"
+
 interface ApiService {
-    @GET("top-headlines")
+    @GET("/v2/everything?apiKey=${API_KEY}&Size=10")
     suspend fun getNews(
-        @Query("country") country: String,
-        @Query("8b0c0bf0d3954af3a5a55bfa98867006") apiKey: String
-    ): NewsResponse
+
+
+        @Query("category") query: String,
+        @Query("apiKey") apiKey: String,
+        @Query("pageSize") pageSize: Int
+
+    ): Response<NewsResponse>
+
+}
+
+
+//object RetrofitInstance{
+//
+//    val newsInstance:ApiService
+//
+//    init{
+//        val retrofit= Retrofit.Builder()
+//            .baseUrl(BASE_URL)
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
+//        newsInstance = retrofit.create(ApiService::class.java)
+//
+//    }
+//
+//}
+
+
+object RetrofitInstance{
+    val newsInstance:ApiService by lazy{
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ApiService::class.java)
+
+
+    }
 }

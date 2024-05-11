@@ -1,0 +1,54 @@
+These are the things still remaining in the app:
+1. Internet connectivity and it's connection to different screens and tasks for example auth and CRUD screens
+2. Profile upload -> Storage, Coil and navigation from signup to profile screen -> Home (successful auth)
+3. Navigation after successful authentication
+4. Improving the UI of email input and signup screen as well as profile screen.
+5.Home Screen -> Completely pending
+6.Data Screen ->
+   |- Data fetching ? and displaying it in appealing way
+       |- Offline strategy for data fetching -> Caching(Firebase) and other strategy
+       |- Source(Caching, Local storage, fetching from firebase and also deciding the frequency of network calls)
+       |- make network call for every 24 hrs if internet is available else use cache and if user deletes the cache show the error message
+       |- Give a button to user to refresh the data
+
+   |- Pending Screens->
+        |- Sugar
+        |- Lab Screen
+        |- Prescription Screen
+   |- Improving the top and bottom bar and background colors adding animations to data screens
+   |- for Cards to display the previous data should we make different composable or not specially for the Lab and presc. data
+   |- Interest Screen ->
+        |- Brainstorm over network call and app performance
+        |- different options like health news, blogs videos,
+        |- URL for navigation
+   |- Home Screen
+        |- Medication data
+            |- Notification
+            |- Taking user data and storing it in either local storage(*Room*) or on firestore
+            |- Image associated with user medication data -> (Pill, Injections, Tablet)
+            |- Name of the medication, Image, Frequency and dosage along with the time which user can select
+            |- Time(start data , end date and time stamps in day -> Notifications
+            |- Notifications -> On exact time and keep it completely offline
+            |- Notification's response -> Taken or Missed(categorization of medicine)
+            |- Display of medication
+               |- Asynchronously using Room and coroutine
+               |- Display taken medicines and missed in separate ways
+               |- Brainstorm more on this
+               |- Ongoing Medicines
+
+        |- User's Daily Insights
+
+        |- Activity and fitness data
+           |- Steps and Calorie -> Brainstorm over it
+
+
+
+
+
+7. Doctor Profile
+   |- Authentication
+   |- User flow and features
+   |- Data display
+
+
+

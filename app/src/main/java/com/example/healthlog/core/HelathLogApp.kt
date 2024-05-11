@@ -10,9 +10,13 @@ import com.example.healthlog.mainscreens.homeScreen.HomeScreen
 import com.example.healthlog.mainscreens.interestsScreen.InterestsScreen
 import com.example.healthlog.mainscreens.features.FeatureListScreen
 import com.example.healthlog.mainscreens.features.featuresScreen.allergy.AllergyScreen
+import com.example.healthlog.mainscreens.features.featuresScreen.allergy.PreviousAllergyScreen
 import com.example.healthlog.mainscreens.features.featuresScreen.bloodPressure.BloodPressureScreen
+import com.example.healthlog.mainscreens.features.featuresScreen.bloodPressure.PreviousBloodPressureScreen
 import com.example.healthlog.mainscreens.features.featuresScreen.oxygen.OxygenScreen
+import com.example.healthlog.mainscreens.features.featuresScreen.oxygen.PreviousOxygenScreen
 import com.example.healthlog.mainscreens.features.featuresScreen.vaccine.NewVaccineScreen
+import com.example.healthlog.mainscreens.features.featuresScreen.vaccine.PreviousVaccineScreen
 
 import com.example.healthlog.ui_authentication.screens.forgotpassword.emailVerification.EmailInput
 import com.example.healthlog.ui_authentication.screens.login.LoginScreen
@@ -36,6 +40,15 @@ sealed class Screen(val route: String) {
 
     data object  BloodPressureScreen:Screen("bloodpressurescreen")
 
+    data object  PreviousVaccineScreen:Screen("previousvaccinescreen")
+
+    data object  PreviousOxygenScreen:Screen("previousoxygencreen")
+
+    data object  PreviousAllergyScreen:Screen("previousallergyscreen")
+
+    data object  PreviousBloodPressureScreen:Screen("previousbloodpressurescreen")
+
+
 }
 
 
@@ -44,7 +57,7 @@ fun HealthLogApp(navController: NavHostController,navigationManager: NavigationM
 
     val startDestination = if(appState.isUserLoggedIn) Screen.HomeScreen.route else Screen.Login.route
 
-        NavHost(navController, startDestination = startDestination) {
+        NavHost(navController, startDestination = startDestination){
             composable(Screen.Login.route) {
                 LoginScreen(navigationManager)
             }
@@ -55,6 +68,10 @@ fun HealthLogApp(navController: NavHostController,navigationManager: NavigationM
             composable(Screen.EmailInput.route){
                 EmailInput(navigationManager)
             }
+            composable(Screen.PreviousVaccineScreen.route){
+                PreviousVaccineScreen(navigationManager)
+            }
+
 //            composable(Screen.ProfileUpload.route){
 //                PhotoUploadScreen(HealthLogAppState,navigationManager)
 //            }
@@ -78,6 +95,15 @@ fun HealthLogApp(navController: NavHostController,navigationManager: NavigationM
             }
             composable(Screen.BloodPressureScreen.route){
                 BloodPressureScreen(navigationManager)
+            }
+            composable(Screen.PreviousBloodPressureScreen.route){
+                PreviousBloodPressureScreen(navigationManager)
+            }
+            composable(Screen.PreviousOxygenScreen.route){
+                PreviousOxygenScreen(navigationManager)
+            }
+            composable(Screen.PreviousAllergyScreen.route){
+                PreviousAllergyScreen(navigationManager)
             }
 
 

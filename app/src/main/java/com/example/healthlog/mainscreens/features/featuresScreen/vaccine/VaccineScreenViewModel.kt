@@ -1,9 +1,12 @@
 package com.example.healthlog.mainscreens.features.featuresScreen.vaccine
 
 import android.util.Log
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.healthlog.core.HealthLogAppState
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.SetOptions.merge
 import kotlinx.coroutines.Dispatchers
 
@@ -12,38 +15,29 @@ import kotlinx.coroutines.tasks.await
 import java.sql.Timestamp
 
 class VaccineScreenViewModel():ViewModel() {
+    private val usersCollection = HealthLogAppState.usersCollection
+    private val userEmail=HealthLogAppState.useremail // this has changed
 
-fun saveUserData( selectedDate:Long, vaccineName:String) {
-    val usersCollection = HealthLogAppState.usersCollection
+fun saveVaccineData( selectedDate:Long, vaccineName:String) {
+
+    val userDocRef = usersCollection.document(userEmail)
 
 
 
+    val timeStamp = Timestamp(selectedDate)
 
-    Log.d("Functioncalled?", "Yes")
+    Log.d("TimeStamp?", "Yes")
+
+    val vaccine = hashMapOf(
+        "Name" to vaccineName,
+        "Date" to timeStamp
+    )
+    Log.d("vaccinehashmap?", "Yes")
+    Log.d("email?", userEmail)
+
     viewModelScope.launch(Dispatchers.IO) {
 
-val userEmail=HealthLogAppState.useremail
-
-
-Log.d("email?", userEmail)
         try {
-
-            Log.d("Firestore?", "Yes")
-
-            val userDocRef = usersCollection.document(userEmail)
-
-            Log.d("DocRef?", "Yes")
-
-            val timeStamp = Timestamp(selectedDate)
-
-            Log.d("TimeStamp?", "Yes")
-
-            val vaccine = hashMapOf(
-                "Name" to vaccineName,
-                "Date" to timeStamp
-            )
-            Log.d("vaccinehashmap?", "Yes")
-
 
             userDocRef.collection("Vaccines").document().set(vaccine,merge()).await()
             Log.d("DocSuccess", "DocumentSnapshot successfully written!")
@@ -53,6 +47,27 @@ Log.d("email?", userEmail)
         }
 
     }
+}
+
+fun getVaccineData(): MutableState<List<DocumentSnapshot>> {
+
+val fetchedData = mutableStateOf(emptyList<DocumentSnapshot>())
+
+    usersCollection.document(userEmail).collection("Vaccines").get()
+        .addOnSuccessListener { result ->
+
+            fetchedData.value=result.documents
+            for (document in result) {
+                Log.d("Data?", "${document.id} => ${document.data}")
+            }
+        }
+        .addOnFailureListener { exception ->
+            Log.d("Data?", "Error getting documents: ", exception)
+        }
+
+
+return fetchedData
+
 }
 
 

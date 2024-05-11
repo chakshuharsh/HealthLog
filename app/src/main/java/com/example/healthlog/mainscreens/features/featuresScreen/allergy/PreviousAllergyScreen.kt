@@ -1,4 +1,4 @@
-package com.example.healthlog.mainscreens.features.featuresScreen.vaccine
+package com.example.healthlog.mainscreens.features.featuresScreen.allergy
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,18 +13,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.healthlog.core.NavigationManager
 import com.example.healthlog.mainscreens.commonui.BottomBar
-import com.example.healthlog.mainscreens.commonui.CommonCard
 import com.example.healthlog.mainscreens.commonui.CommonCardNew
 import com.example.healthlog.mainscreens.commonui.topBarForFeatures
 
 @Composable
 
-fun PreviousVaccineScreen(navigationManager: NavigationManager) {
+fun PreviousAllergyScreen(navigationManager: NavigationManager){
 
-
-    val viewModel = remember { VaccineScreenViewModel() }
-    val fetchedVaccineData = viewModel.getVaccineData()
-    var vaccineName: String?
+    val viewModel = remember { AllergyViewModel() }
+    val fetchedAllergyData = viewModel.getAllergyData()
+    var allergyName: String?
     Scaffold(
         topBar = {
             topBarForFeatures(navigationManager)
@@ -41,15 +39,15 @@ fun PreviousVaccineScreen(navigationManager: NavigationManager) {
         ) {
 
             CommonCardNew(
-                onNewClick = {navigationManager.navigateToNewVaccineScreen()},
-                onPreviousClick = {navigationManager.navigateToPreviousVaccineScreen()},
+                onNewClick = {navigationManager.navigateToAllergyScreen()},
+                onPreviousClick = {navigationManager.navigateToPreviousAllergyScreen()},
             )
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            for (document in fetchedVaccineData.value) {
-                vaccineName = document.getString("Name")
-                vaccineName?.let { Text(text = it) }
+            for (document in fetchedAllergyData.value) {
+                allergyName = document.getString("Name")
+                allergyName?.let { Text(text = it) }
             }
         }
     }

@@ -52,7 +52,9 @@ import com.example.healthlog.core.HealthLogAppState
 import com.example.healthlog.core.NavigationManager
 import com.example.healthlog.mainscreens.commonui.BottomBar
 import com.example.healthlog.mainscreens.commonui.CommonCard
+import com.example.healthlog.mainscreens.commonui.CommonCardNew
 import com.example.healthlog.mainscreens.commonui.topBarForFeatures
+import com.example.healthlog.mainscreens.features.featuresScreen.allergy.AllergyViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -61,7 +63,7 @@ import java.util.Locale
 @Composable
 fun OxygenScreen( navigationManager: NavigationManager) {
 
-
+    val viewModel = remember{ OxygenViewModel() }
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
 
@@ -127,7 +129,11 @@ fun OxygenScreen( navigationManager: NavigationManager) {
                 .fillMaxWidth()
         ) {
 
-            CommonCard()
+            CommonCardNew(
+                onNewClick = {navigationManager.navigateToOxygenScreen()},
+                onPreviousClick = {navigationManager.navigateToPreviousOxygenScreen()},
+            )
+
 
             Spacer(modifier = Modifier.height(40.dp))
 
@@ -272,7 +278,7 @@ fun OxygenScreen( navigationManager: NavigationManager) {
             )
             Spacer(modifier = Modifier.height(120.dp))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { viewModel.saveOxygenData(selectedNumberOxygen.value,selectedNumberPulse.value,selectedDateInMillis)},
                 colors = ButtonColors(
                     containerColor = realLightBlueColor,
                     contentColor = Color.White,

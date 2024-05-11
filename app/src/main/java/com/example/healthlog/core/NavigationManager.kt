@@ -19,7 +19,10 @@ class NavigationManager(private val navController: NavHostController) {
         navController.navigate(Screen.Signup.route)
     }
 
-
+    fun navigateToPreviousVaccineScreen() {
+        navController.popBackStack(Screen.PreviousVaccineScreen.route, inclusive = false)
+        navController.navigate(Screen.PreviousVaccineScreen.route)
+    }
 
     fun navigateToEmailInput() {
         navController.popBackStack(Screen.EmailInput.route, inclusive = false)
@@ -32,15 +35,13 @@ class NavigationManager(private val navController: NavHostController) {
     }
 
     fun navigateToHomeScreen(){
-        navController.navigate(Screen.HomeScreen.route)
         navController.popBackStack(Screen.HomeScreen.route, inclusive = false)
-
+        navController.navigate(Screen.HomeScreen.route)
     }
 
     fun navigateToInterestsScreen(){
-        navController.navigate(Screen.InterestsScreen.route)
         navController.popBackStack(Screen.InterestsScreen.route, inclusive = false)
-
+        navController.navigate(Screen.InterestsScreen.route)
     }
 
     fun navigateToBackStack(){
@@ -48,22 +49,45 @@ class NavigationManager(private val navController: NavHostController) {
     }
 
     fun navigateToNewVaccineScreen(){
-        navController.navigate(Screen.NewVaccineScreen.route)
         navController.popBackStack(Screen.NewVaccineScreen.route, inclusive = false)
+        navController.navigate(Screen.NewVaccineScreen.route)
     }
 
     fun navigateToAllergyScreen(){
-        navController.navigate(Screen.AllergyScreen.route)
         navController.popBackStack(Screen.AllergyScreen.route, inclusive = false)
+        navController.navigate(Screen.AllergyScreen.route)
+
     }
 
     fun navigateToOxygenScreen(){
-        navController.navigate(Screen.OxygenScreen.route)
         navController.popBackStack(Screen.OxygenScreen.route, inclusive = false)
+        navController.navigate(Screen.OxygenScreen.route)
+
     }
 
     fun navigateToBloodPressureScreen(){
-        navController.navigate(Screen.BloodPressureScreen.route)
         navController.popBackStack(Screen.BloodPressureScreen.route, inclusive = false)
+        navController.navigate(Screen.BloodPressureScreen.route)
+
     }
+
+    fun navigateToPreviousOxygenScreen() {
+        navController.popBackStack(Screen.PreviousOxygenScreen.route, inclusive = false)
+        navController.navigate(Screen.PreviousOxygenScreen.route)
+
+
+    }
+
+
+    fun navigateToPreviousAllergyScreen() {
+        navController.popBackStack(Screen.PreviousAllergyScreen.route, inclusive = false)
+        navController.navigate(Screen.PreviousAllergyScreen.route)
+    }
+
+    fun navigateToPreviousBloodPressureScreen(){
+        navController.popBackStack(Screen.PreviousBloodPressureScreen.route, inclusive = false)
+        navController.navigate(Screen.PreviousBloodPressureScreen.route)
+
+    }
+
 }

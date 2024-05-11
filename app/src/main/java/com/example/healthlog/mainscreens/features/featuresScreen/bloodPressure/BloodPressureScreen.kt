@@ -51,7 +51,9 @@ import com.example.healthlog.core.HealthLogAppState
 import com.example.healthlog.core.NavigationManager
 import com.example.healthlog.mainscreens.commonui.BottomBar
 import com.example.healthlog.mainscreens.commonui.CommonCard
+import com.example.healthlog.mainscreens.commonui.CommonCardNew
 import com.example.healthlog.mainscreens.commonui.topBarForFeatures
+import com.example.healthlog.mainscreens.features.featuresScreen.oxygen.OxygenViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -61,7 +63,7 @@ import java.util.Locale
 @Composable
 fun BloodPressureScreen( navigationManager: NavigationManager) {
 
-
+    val viewModel = remember{ BloodPressureViewModel() }
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
 
@@ -125,7 +127,11 @@ fun BloodPressureScreen( navigationManager: NavigationManager) {
                 .fillMaxWidth()
         ) {
 
-            CommonCard()
+            CommonCardNew(
+                onNewClick = {navigationManager.navigateToBloodPressureScreen()},
+                onPreviousClick = {navigationManager.navigateToPreviousBloodPressureScreen()},
+            )
+
 
             Spacer(modifier = Modifier.height(40.dp))
 
@@ -314,7 +320,7 @@ fun BloodPressureScreen( navigationManager: NavigationManager) {
             )
             Spacer(modifier = Modifier.height(120.dp))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { viewModel.saveBloodPressureData(selectedNumberSystolic.value,selectedNumberDiastolic.value,selectedNumberPulse.value,selectedDateInMillis) },
                 colors = ButtonColors(
                     containerColor = realBlueColor,
                     contentColor = Color.White,

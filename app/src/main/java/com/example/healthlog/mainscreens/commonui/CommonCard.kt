@@ -18,7 +18,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun CommonCard(){
+fun CommonCard(
+
+){
     val lightBlue = Color(0xFF4169E1)
 val commonCardColor = Color(25, 25, 112)
     val topBarForFeaturesColor = Color(25, 25, 112)
