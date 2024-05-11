@@ -8,7 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
  const val BASE_URL = "https://newsapi.org"
- const val API_KEY = "8b0c0bf0d3954af3a5a55bfa98867006"
+const val API_KEY =ApiKeys.API_KEY
 
 interface ApiService {
     @GET("/v2/everything?apiKey=${API_KEY}&Size=10")
