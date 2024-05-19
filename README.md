@@ -13,6 +13,7 @@ Following are the screens developed
 <img src = "https://github.com/chakshuharsh/HealthLog/assets/78860762/7a76a576-1bb5-46e8-8179-f4e4a45403b3" width="400" height="700">
 <img src = "https://github.com/chakshuharsh/HealthLog/assets/78860762/17b8e4e4-93ac-4fda-9396-97407345cde5" width="400" height="700">
 <img src = "https://github.com/chakshuharsh/HealthLog/assets/78860762/f8d7b0d6-d777-4892-966b-002549178338" width="400" height="700">
+<img src = "https://github.com/jaiacharya2004/HealthLog/assets/155559876/a59b4ff0-9144-4813-98cc-af94e65d58d7" width="400" height="700">
 
 
 
