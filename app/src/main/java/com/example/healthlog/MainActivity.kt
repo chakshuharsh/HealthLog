@@ -23,6 +23,7 @@ import com.example.healthlog.mainscreens.features.featuresScreen.Oxygen.OxygenSc
 
 import com.example.healthlog.ui.theme.SimpleLoginScreenTheme
 import com.example.healthlog.ui_authentication.screens.login.LoginScreen
+import com.example.healthlog.ui_authentication.screens.signup.PhotoUploadScreen
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 
@@ -36,7 +37,8 @@ class MainActivity : ComponentActivity() {
             val appState: HealthogAppState = HealthogAppState
             val navController = rememberNavController()
             val navigationManager = NavigationManager(navController)
-            HealthLogApp(navController, navigationManager)
+//            HealthLogApp(navController, navigationManager)
+            PhotoUploadScreen(navigationManager)
 //            FeatureListScreen(navigationManager)
 //BloodPressureScreen(navigationManager)
 //OxygenScreen(navigationManager)

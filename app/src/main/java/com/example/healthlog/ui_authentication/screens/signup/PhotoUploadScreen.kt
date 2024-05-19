@@ -1,5 +1,9 @@
 package com.example.healthlog.ui_authentication.screens.signup
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,19 +20,38 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -42,115 +65,115 @@ import com.example.healthlog.core.NavigationManager
 @Composable
 fun PhotoUploadScreen(navigationManager: NavigationManager){
 
-    var selectedImage =  remember {mutableStateOf<ImageBitmap?>(null)}
+//    var selectedImage =  remember {mutableStateOf<ImageBitmap?>(null)}
+//    var imageUri by remember { mutableStateOf<Uri?>(null) }
+//    val context = LocalContext.current
 
+//    val selectImageLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+//        imageUri = uri
+//    }
 
-    Column(
-        modifier= Modifier
-        .fillMaxSize()
-        .padding(top = 10.dp, start = 15.dp, bottom = 3.dp, end = 15.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Row(
-            modifier= Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-
-
-            Text(
-                text = stringResource(id = R.string.app_name),
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
-                color = Color.Black
+        TextButton(onClick = { /*TODO*/ }) {
+            Icon(
+                Icons.Default.ArrowBack, contentDescription = null
             )
-
-              // place an icon and a text here to continue without images
-
-
-
         }
 
-        Spacer(modifier = Modifier.height(40.dp))
-
-        Text(
-            text= stringResource(R.string.profile_photo),
-            fontWeight = FontWeight.Bold,
-            color = Color.Black,
-            fontSize = 30.sp,
-            textAlign = TextAlign.Center,
-
-            )
 
 
-        Spacer(modifier = Modifier.height(60.dp))
 
-        Box(
+    Column (
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 110.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+//        verticalArrangement = Arrangement.Center
+    ){
+        Text(text = "Add a", fontSize = 30.sp)
+        Text(text = "Profile Picture", fontSize = 30.sp)
+
+        Spacer(modifier = Modifier.height(36.dp))
+
+        Box (
             modifier = Modifier
                 .size(200.dp)
                 .clip(CircleShape)
-                .clickable { }
-                .background(Color.Gray),
+                .clickable { },
             contentAlignment = Alignment.Center
         ) {
 
+            Text(
+                modifier = Modifier.offset(y = (30).dp),
+                text = "Add Photo" , textAlign = TextAlign.Center)
 
 
-                //show the default image
-               Image(
-                   painter = painterResource(id = R.drawable.default_profile_picture),
-                   contentDescription = "Default Profile Photo",
-                   modifier = Modifier
-                       .size(500.dp)
 
-               )
+            Canvas(modifier = Modifier.matchParentSize()) {
+                val radius = size.minDimension / 2
+                val stroke = Stroke(
+                    width = 6.dp.toPx(),
+                    pathEffect = PathEffect.dashPathEffect(floatArrayOf(50f, 40f), 0f)
+                )
+                drawCircle(Color.Gray, radius, style = stroke)
+
+
+
+
+
+            }
+//            if (imageUri == null) {
+//                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+//                     Icon(
+////                        imageVector = ImageVector.vectorResource(id = R.drawable.add_24dp_fill0_wght400_grad0_opsz24),
+////                        contentDescription = "Add Photo",
+////                        modifier = Modifier.size(24.dp)
+////                    )
+//                    Text(text = "Add Photo", fontSize = 14.sp)
+//                }
+//            } else {
+                // Load the image using any image loading library, e.g., Coil
+//                Image(
+//                    painter = rememberImagePainter(data = imageUri),
+//                    contentDescription = null,
+//                    modifier = Modifier.size(150.dp),
+//                    contentScale = ContentScale.Crop
+//                )
+//            }
+
+
+            TextButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    Icons.Default.Add, contentDescription = null
+                )
+            }
 
 
 
         }
 
-        Spacer(modifier = Modifier.height(52.dp))
+        Spacer(modifier = Modifier.height(285.dp))
 
+        Button(onClick = { /* Continue action */ },
+            modifier = Modifier
+                .fillMaxWidth(0.92f)
+                .height(50.dp),
+//                    shape = ShapeDefaults.Small,
+            shape = RoundedCornerShape(20.dp),
+            colors = ButtonDefaults.buttonColors(Color.LightGray)
+        ) {
+            Text(text = "Continue    ",   fontSize = 20.sp, textAlign = TextAlign.Center)
+            Icon(
+                Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null
+            )
+        }
 
-        customButton(stringResource(id =R.string.Open_camera))
+        Spacer(modifier = Modifier.height(8.dp))
 
-        Spacer(modifier = Modifier.height(10.dp))
+        TextButton(onClick = { /* Skip action */ },
 
-        customButton(stringResource(id =R.string.Open_gallery))
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        customButton(stringResource(id =R.string.Upload))
-
-
-
-
-
-
-
-
-    }
-}
-
-
-@Composable
-fun customButton(buttonText:String ){ // pass the OnClick functions
-
-    Button(
-        onClick = { },
-        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4169E1)),
-        modifier = Modifier
-            .fillMaxWidth(0.9f)
-            .padding(16.dp),
-
-        shape = RoundedCornerShape(8.dp),
-
-    ) {
-        Text(
-            text = buttonText,
-            fontSize=20.sp
-        )
-
+        ) {
+            Text(text = "Skip", fontSize = 20.sp)
+        }
     }
 }
 
