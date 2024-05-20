@@ -24,9 +24,9 @@ import com.example.healthlog.mainscreens.features.featuresScreen.Oxygen.OxygenSc
 import com.example.healthlog.ui.theme.SimpleLoginScreenTheme
 import com.example.healthlog.ui_authentication.screens.login.LoginScreen
 import com.example.healthlog.ui_authentication.screens.signup.PhotoUploadScreen
+import com.example.healthlog.ui_authentication.screens.signup.SignupScreen
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
-
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,12 +38,13 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             val navigationManager = NavigationManager(navController)
 //            HealthLogApp(navController, navigationManager)
-            PhotoUploadScreen(navigationManager)
+//            PhotoUploadScreen(navigationManager)
 //            FeatureListScreen(navigationManager)
 //BloodPressureScreen(navigationManager)
 //OxygenScreen(navigationManager)
 //BloodPressureScreen(navigationManager)
 //LoginScreen(navigationManager)
+            SignupScreen(navigationManager = navigationManager)
         }
     }
 }

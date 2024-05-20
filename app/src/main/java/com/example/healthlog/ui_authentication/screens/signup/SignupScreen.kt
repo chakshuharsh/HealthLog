@@ -3,15 +3,19 @@ package com.example.healthlog.ui_authentication.screens.signup
 
 
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -23,6 +27,8 @@ import androidx.compose.runtime.setValue
 
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
@@ -82,10 +88,11 @@ fun SignupScreen(navigationManager: NavigationManager){
     val passwordFocusRequester = remember { FocusRequester() }
 
     val nameFocusRequester = remember { FocusRequester() }
+    val darkerColor = Color(74, 86, 119)
 
 
 
-var showError by remember{mutableStateOf(false)}
+    var showError by remember{mutableStateOf(false)}
 
 
     if(viewModel.isUserExists){
@@ -95,198 +102,238 @@ var showError by remember{mutableStateOf(false)}
 
     Column(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .background(darkerColor)
+            .background(Color.Transparent),
         verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
 
 
         ) {
 
-        Text(
-            text = "Welcome to HealthLog", fontSize = 25.sp, color = Color.Black,fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
+        Image(
+            painter = painterResource(id = R.drawable.doctor3),
+            contentDescription = null,
+            modifier = Modifier.size(135.dp)
 
-        Text(
-            text = "Please Introduce yourself",
-            color = Color.Gray,
-            modifier = Modifier
-                .padding(top = 8.dp)
-                .align(Alignment.CenterHorizontally),
-            fontSize = 15.sp,
-            textAlign = TextAlign.Center
-        )
 
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Text(
-            text = "Enter Name",
-            color = Color.Black,
-            modifier = Modifier.padding(top = 8.dp, start = 20.dp),
-            fontSize = 17.sp,
-            textAlign = TextAlign.Start
         )
+        Spacer(modifier = Modifier.height(8.dp))
+
+Card(
+    modifier = Modifier
+        .fillMaxWidth(0.9f)
+        .padding(bottom =14.dp)
+        .fillMaxHeight(0.8f),
+    shape = RoundedCornerShape(36.dp),
+    colors = CardColors(
+        containerColor = Color.Black,
+        contentColor = Color.White,
+        disabledContainerColor = Color.Unspecified,
+        disabledContentColor = Color.Unspecified)
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize(0.94f)
+            .fillMaxHeight()
+            .padding(start = 15.dp, top = 35.dp),
+        verticalArrangement = Arrangement.Center
+    ){
+
+    Text(
+        text = "Welcome to HealthLog",
+        fontSize = 25.sp,
+        color = Color.White,
+        fontWeight = FontWeight.Bold,
+        textAlign = TextAlign.Center,
+        modifier = Modifier.align(Alignment.CenterHorizontally)
+    )
+
+    Text(
+        text = "Please Introduce yourself",
+        color = Color.Gray,
+        modifier = Modifier
+            .padding(top = 8.dp)
+            .align(Alignment.CenterHorizontally),
+        fontSize = 15.sp,
+        textAlign = TextAlign.Center
+    )
+
+    Spacer(modifier = Modifier.height(24.dp))
+
+    Text(
+        text = "Enter Name",
+        color = Color.White,
+        modifier = Modifier.padding(top = 8.dp, start = 20.dp),
+        fontSize = 17.sp,
+        textAlign = TextAlign.Start
+    )
 //
-        OutlinedTextField(
-            value = nameState.value,
-            onValueChange = { nameState.value = it },
-            modifier = Modifier
-                .padding(top = 8.dp, start = 4.dp)
-                .focusRequester(nameFocusRequester)
-                .fillMaxWidth(0.9f)
-                .align(Alignment.CenterHorizontally)
-                .width(500.dp),
+    OutlinedTextField(
+        value = nameState.value,
+        onValueChange = { nameState.value = it },
+        modifier = Modifier
+            .padding(top = 8.dp, start = 4.dp)
+            .focusRequester(nameFocusRequester)
+            .fillMaxWidth(0.9f)
+            .align(Alignment.CenterHorizontally)
+            .width(500.dp),
 
-            placeholder = { Text("ex :John Doe") },
-            textStyle = LocalTextStyle.current.copy(color = Color.Black),
-            singleLine = true,
-            shape = RoundedCornerShape(20.dp),
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Next,
-                autoCorrect = false,
-                keyboardType = KeyboardType.Text,
+        placeholder = { Text("ex :John Doe" , color = Color.White) },
+        textStyle = LocalTextStyle.current.copy(color = Color.White),
+        singleLine = true,
+        shape = RoundedCornerShape(20.dp),
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Next,
+            autoCorrect = false,
+            keyboardType = KeyboardType.Text,
 
             ),
-            keyboardActions = KeyboardActions(
-                onNext = {
-                    keyboardController?.hide()
-                    focusManager.clearFocus()
-                    emailFocusRequester.requestFocus()}),
-        )
-
-        Spacer(modifier = Modifier.height(15.dp))
-
-
-        Text(
-            text = "Enter Email",
-            color = Color.Black,
-            modifier = Modifier.padding(top = 8.dp, start = 20.dp).focusRequester(emailFocusRequester),
-            fontSize = 17.sp,
-            textAlign = TextAlign.Start
-        )
-//        Spacer(modifier = Modifier.height(15.dp))
-        OutlinedTextField(
-            value = emailState.value,
-            onValueChange = { emailState.value = it },
-            modifier = Modifier
-                .focusRequester(emailFocusRequester)
-                .padding(top = 8.dp, start = 4.dp)
-                .fillMaxWidth(0.9f)
-                .align(Alignment.CenterHorizontally)
-                .width(500.dp),
-            placeholder = { Text("ex :hello@email.com") },
-            textStyle = LocalTextStyle.current.copy(color = Color.Black),
-            singleLine = true,
-            shape = RoundedCornerShape(20.dp),
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Next,
-                keyboardType = KeyboardType.Email,
-                autoCorrect = false,
-            ),
-            keyboardActions = KeyboardActions(
-                onNext = {
-
-                    keyboardController?.hide()
-                    focusManager.clearFocus()
-                    passwordFocusRequester.requestFocus()
-
-                }
-            ),
-            isError = isEmailValid(emailState.value),
-
-        )
-
-        Spacer(modifier = Modifier.height(15.dp))
-        Text(
-            text = "Enter Password",
-            color = Color.Black,
-            modifier = Modifier.padding(top = 8.dp, start = 20.dp),
-            fontSize = 17.sp,
-            textAlign = TextAlign.Start
-        )
-//        Spacer(modifier = Modifier.height(15.dp))
-        OutlinedTextField(
-            value = passwordState.value,
-            onValueChange = { newValue:String ->
-                passwordState.value = newValue // Update the passwordState value
-            },
-            modifier = Modifier
-                .padding(top = 8.dp, start = 4.dp)
-                .fillMaxWidth(0.9f)
-                .focusRequester(passwordFocusRequester)
-                .align(Alignment.CenterHorizontally)
-                .width(500.dp),
-            textStyle = LocalTextStyle.current.copy(color = Color.Black),
-
-
-            singleLine = true,
-            shape = RoundedCornerShape(20.dp),
-            keyboardOptions = KeyboardOptions.Default.copy(
-                imeAction = ImeAction.Done,
-                autoCorrect = false,
-                keyboardType = KeyboardType.Password,
-            ),
-            trailingIcon = {
-                IconButton(onClick = {
-                    passwordVisibility = !passwordVisibility
-                })
-                {
-                    val icon: Painter = if (passwordVisibility) {
-                        painterResource(id = R.drawable.visibilityopen)
-                    } else {
-                        painterResource(id = R.drawable.visibility_off)
-                    }
-                    Icon(painter = icon, contentDescription = "Toggle visibility")
-                }
-            },
-            keyboardActions = KeyboardActions(onDone = {
+        keyboardActions = KeyboardActions(
+            onNext = {
                 keyboardController?.hide()
                 focusManager.clearFocus()
+                emailFocusRequester.requestFocus()
             }),
-            visualTransformation = if (passwordVisibility) VisualTransformation.None
-            else PasswordVisualTransformation()
+    )
+
+    Spacer(modifier = Modifier.height(15.dp))
+
+
+    Text(
+        text = "Enter Email",
+        color = Color.White,
+        modifier = Modifier.padding(top = 8.dp, start = 20.dp)
+            .focusRequester(emailFocusRequester),
+        fontSize = 17.sp,
+        textAlign = TextAlign.Start
+    )
+//        Spacer(modifier = Modifier.height(15.dp))
+    OutlinedTextField(
+        value = emailState.value,
+        onValueChange = { emailState.value = it },
+        modifier = Modifier
+            .focusRequester(emailFocusRequester)
+            .padding(top = 8.dp, start = 4.dp)
+            .fillMaxWidth(0.9f)
+            .align(Alignment.CenterHorizontally)
+            .width(500.dp),
+        placeholder = { Text("ex :hello@email.com",color = Color.White) },
+        textStyle = LocalTextStyle.current.copy(color = Color.White),
+        singleLine = true,
+        shape = RoundedCornerShape(20.dp),
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Next,
+            keyboardType = KeyboardType.Email,
+            autoCorrect = false,
+        ),
+        keyboardActions = KeyboardActions(
+            onNext = {
+
+                keyboardController?.hide()
+                focusManager.clearFocus()
+                passwordFocusRequester.requestFocus()
+
+            }
+        ),
+        isError = isEmailValid(emailState.value),
+
         )
 
+    Spacer(modifier = Modifier.height(15.dp))
+    Text(
+        text = "Enter Password",
+        color = Color.White,
+        modifier = Modifier.padding(top = 8.dp, start = 20.dp),
+        fontSize = 17.sp,
+        textAlign = TextAlign.Start
+    )
+//        Spacer(modifier = Modifier.height(15.dp))
+    OutlinedTextField(
+        value = passwordState.value,
+        onValueChange = { newValue: String ->
+            passwordState.value = newValue // Update the passwordState value
+        },
+        modifier = Modifier
+            .padding(top = 8.dp, start = 4.dp)
+            .fillMaxWidth(0.9f)
+            .focusRequester(passwordFocusRequester)
+            .align(Alignment.CenterHorizontally)
+            .width(500.dp),
+        textStyle = LocalTextStyle.current.copy(color = Color.White),
 
 
-        Spacer(modifier = Modifier.height(27.dp))
+        singleLine = true,
+        shape = RoundedCornerShape(20.dp),
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Done,
+            autoCorrect = false,
+            keyboardType = KeyboardType.Password,
+        ),
+        trailingIcon = {
+            IconButton(onClick = {
+                passwordVisibility = !passwordVisibility
+            })
+            {
+                val icon: Painter = if (passwordVisibility) {
+                    painterResource(id = R.drawable.visibilityopen)
+                } else {
+                    painterResource(id = R.drawable.visibility_off)
+                }
+                Icon(painter = icon, contentDescription = "Toggle visibility")
+            }
+        },
+        keyboardActions = KeyboardActions(onDone = {
+            keyboardController?.hide()
+            focusManager.clearFocus()
+        }),
+        visualTransformation = if (passwordVisibility) VisualTransformation.None
+        else PasswordVisualTransformation()
+    )
+
+
+
+    Spacer(modifier = Modifier.height(15.dp))
 //viewModel.doesUserExist(emailState.value, passwordState.value, nameState.value)
-        Button(
-            onClick = {
+    Button(
+        onClick = {
 
-                      if(emailState.value.isEmpty()){
-                          emailFocusRequester.requestFocus()
-                      }
+            if (emailState.value.isEmpty()) {
+                emailFocusRequester.requestFocus()
+            }
 
-                if(passwordState.value.isEmpty()){
-                    passwordFocusRequester.requestFocus()
-                }
+            if (passwordState.value.isEmpty()) {
+                passwordFocusRequester.requestFocus()
+            }
 
-                if(nameState.value.isEmpty()){
-                    nameFocusRequester.requestFocus()
-                }
-else{
-    viewModel.signUp(emailState.value,passwordState.value,nameState.value)
-                }
+            if (nameState.value.isEmpty()) {
+                nameFocusRequester.requestFocus()
+            } else {
+                viewModel.signUp(emailState.value, passwordState.value, nameState.value)
+            }
 
-            },
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4169E1)),
-            modifier = Modifier
-                        .fillMaxWidth(0.9f)
-                .align(Alignment.CenterHorizontally)
-                        .padding(16.dp) ,
-            shape = RoundedCornerShape(8.dp),
-        ) {
-            Text(text = "Sign Up",
-                fontSize=25.sp)
-        }
+        },
+        colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        shape = RoundedCornerShape(16.dp),
+    ) {
+        Text(
+            text = "Sign Up",
+            fontSize = 23.sp,
+            color = Color.Black
+        )
+    }
+}
+    }
 
 Row(modifier=Modifier.fillMaxWidth(),
     horizontalArrangement = Arrangement.Center,
     verticalAlignment = Alignment.CenterVertically) {
     Text(
         text = "Already have an account! ",
-        color = Color.Gray,
+        color = Color.White,
         modifier = Modifier
             .padding(top = 8.dp),
         fontSize = 15.sp,
@@ -295,7 +342,7 @@ Row(modifier=Modifier.fillMaxWidth(),
 
     Text(
         text = "Login",
-        color = Color.Blue,
+        color = Color.Yellow,
         modifier = Modifier
             .clickable(onClick = { navigationManager.navigateToLogin()})
             .padding(top = 8.dp),
