@@ -2,11 +2,13 @@ package com.example.healthlog.mainscreens.features.featuresScreen.vaccine
 
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,6 +23,7 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -44,6 +47,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 
@@ -94,11 +99,7 @@ var isButtonEnabled= remember{mutableStateOf(false)}
     val realBlueColor = Color(74,86,119)
 
 
-//    LaunchedEffect(email){
-//        viewModel.getUserDetails(email) { userName ->
-//            userNameState.value = userName
-//        }
-//    }
+
 
 
     Scaffold(
@@ -107,20 +108,23 @@ var isButtonEnabled= remember{mutableStateOf(false)}
     },
     bottomBar = {
         BottomBar(navigationManager)
-    }
+    },
+        modifier = Modifier.fillMaxSize()
+
 ) {innerpadding->
 
     Column(modifier = Modifier
         .padding(innerpadding)
-        .fillMaxWidth()
+        .fillMaxSize()
+        .background(Color(0xFFE6F0FA))
     ) {
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(0.dp))
         CommonCardNew(
             onNewClick = {navigationManager.navigateToNewVaccineScreen()},
             onPreviousClick = {navigationManager.navigateToPreviousVaccineScreen()},
         )
 
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
        Row(
            modifier = Modifier
@@ -138,14 +142,15 @@ var isButtonEnabled= remember{mutableStateOf(false)}
                contentScale = ContentScale.Fit,
                alignment = Alignment.CenterEnd
            )
-          Spacer(modifier = Modifier.width(20.dp))
+          Spacer(modifier = Modifier.width(10.dp))
 
            Text(
                text = "Vaccine",
-               color = Color.Blue,
+               color = Color.Black,
                modifier = Modifier
                    .padding(top = 17.dp,bottom = 5.dp),
-               fontSize = 25.sp
+               fontSize = 25.sp,
+               fontWeight = FontWeight.Medium
 
                )
        } // contains Image and Text
@@ -220,7 +225,9 @@ DatePickerDialog(
 Spacer(modifier = Modifier.width(13.dp))
 
 Card(
-modifier = Modifier.height(52.dp).clickable { openDialog.value = true }
+modifier = Modifier
+    .height(52.dp)
+    .clickable { openDialog.value = true }
 ) {
     Text(
         text = formattedDate,
@@ -238,13 +245,18 @@ modifier = Modifier.height(52.dp).clickable { openDialog.value = true }
 
 
         }
-        Spacer(modifier = Modifier.height(190.dp))
+        Spacer(modifier = Modifier.height(60.dp))
+
+        MedicineSection(navigationManager)
+
+        Spacer(modifier = Modifier.height(60.dp))
+
         Button(
             onClick = { viewModel.saveVaccineData(selectedDateInMillis,vaccineState.value)
                 vaccineState.value = ""
                 datePickerState.selectedDateMillis = System.currentTimeMillis()},
             colors = ButtonColors(
-                containerColor = realBlueColor,
+                containerColor = Color(0xFF4169E1),
                 contentColor = Color.White,
                 disabledContainerColor = Color.Gray,
                 disabledContentColor = Color.Cyan
@@ -253,7 +265,7 @@ modifier = Modifier.height(52.dp).clickable { openDialog.value = true }
             modifier = Modifier
                 .padding(start = 15.dp, end = 10.dp)
                 .width(350.dp),
-            shape = RoundedCornerShape(20.dp)
+            shape = RoundedCornerShape(10.dp)
 
         ) {
             Text(
@@ -276,4 +288,45 @@ modifier = Modifier.height(52.dp).clickable { openDialog.value = true }
 
 }
 
+
+
+
+
+
+
+}
+
+
+@Composable
+fun MedicineSection(navigationManager: NavigationManager) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth(0.9f)
+            .padding(start = 20.dp, end = 0.dp,top =0.dp).clickable(onClick = {navigationManager.navigateToPreviousVaccineScreen()}),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFB3D9FF)),
+        elevation = CardDefaults.cardElevation(4.dp),
+        shape = RoundedCornerShape(23.dp),
+    ) {
+
+        Row() {
+
+            Column(
+                modifier = Modifier.padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = "Your Vaccines", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.height(13.dp))
+                // Replace with your circular progress indicator
+                Text(text = "65%", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.height(13.dp))
+                Text(text = "Your previous vaccines", fontSize = 14.sp, color = Color.Black)
+            }
+
+            Image(painter = painterResource(id = R.drawable.vaccineimage), contentDescription = "Medicine",
+                modifier =Modifier.padding(start=10.dp,top=0.dp,bottom=10.dp)
+                    .clickable  (onClick = {navigationManager.navigateToPreviousVaccineScreen()})
+            )
+
+        }
+    }
 }

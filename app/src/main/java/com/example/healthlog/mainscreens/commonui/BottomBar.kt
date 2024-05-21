@@ -34,7 +34,7 @@ import com.example.healthlog.core.NavigationManager
 @Composable
 fun BottomBar(navigationManager: NavigationManager){
 
-    val bottomBarColor = Color(25, 25, 112)
+    val bottomBarColor =Color(25, 25, 112)
 
 Card(
    colors= CardColors(containerColor = bottomBarColor, contentColor = Color.White, disabledContentColor = Color.Gray, disabledContainerColor = bottomBarColor),

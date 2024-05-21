@@ -1,0 +1,13 @@
+-> Int the top -> Profile photo + Name + Greeting Message
+-> Main Features
+  - Kcal burnt
+  - Steps
+  - Glasses of Water
+-> Medication reminder
+selection of type of medicine
+input the data like name dosage and frequency and time
+and saving the data in room data base or firebase and images in local storage limited to 4
+water requirements
+
+
+

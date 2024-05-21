@@ -60,12 +60,12 @@ fun FeatureListScreen( navigationManager: NavigationManager){
         Feature(
         featureText = "Prescription",
         image = ImageBitmap.imageResource(R.drawable.prescription),
-            onClick = {navigationManager.navigateToNewVaccineScreen()}
+            onClick = {navigationManager.navigateToPrescriptionScreen()}
     ),
         Feature(
-        featureText = "Lac Tests",
+        featureText = "Lab Tests",
         image = ImageBitmap.imageResource(R.drawable.test),
-            onClick = {navigationManager.navigateToNewVaccineScreen()}
+            onClick = {navigationManager.navigateToLabReportScreen()}
     ),
         Feature(
         featureText = "Sugar levels",

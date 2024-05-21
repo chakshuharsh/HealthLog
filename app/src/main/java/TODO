@@ -13,8 +13,8 @@ These are the things still remaining in the app:
 
    |- Pending Screens->
         |- Sugar
-        |- Lab Screen
-        |- Prescription Screen
+
+
    |- Improving the top and bottom bar and background colors adding animations to data screens
    |- for Cards to display the previous data should we make different composable or not specially for the Lab and presc. data
    |- Interest Screen ->
@@ -51,4 +51,11 @@ These are the things still remaining in the app:
    |- Data display
 
 
+Main Things for Now
+-> Data storage and fetching for all the features
+-> Medicine reminder -> Room or firebase and also Notification
+-> Health news on the interest screen
+->Profile Photo using Coil
+-> Steps + Calories burnt
+-> UI for showcasing data fetched in features screen
 

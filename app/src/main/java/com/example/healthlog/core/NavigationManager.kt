@@ -90,4 +90,19 @@ class NavigationManager(private val navController: NavHostController) {
 
     }
 
+    fun navigateToProfileScreen(){
+        navController.popBackStack(Screen.ProfileScreen.route, inclusive = false)
+        navController.navigate(Screen.ProfileScreen.route)
+    }
+
+    fun navigateToPrescriptionScreen(){
+        navController.popBackStack(Screen.PrescriptionScreen.route, inclusive = false)
+        navController.navigate(Screen.PrescriptionScreen.route)
+    }
+
+    fun navigateToLabReportScreen(){
+        navController.popBackStack(Screen.LabReportScreen.route, inclusive = false)
+        navController.navigate(Screen.LabReportScreen.route)
+    }
+
 }

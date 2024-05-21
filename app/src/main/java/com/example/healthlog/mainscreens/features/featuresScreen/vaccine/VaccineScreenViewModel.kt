@@ -7,8 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.healthlog.core.HealthLogAppState
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions.merge
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -18,7 +21,11 @@ class VaccineScreenViewModel():ViewModel() {
     private val usersCollection = HealthLogAppState.usersCollection
     private val userEmail=HealthLogAppState.useremail // this has changed
 
-fun saveVaccineData( selectedDate:Long, vaccineName:String) {
+    private val _vaccineData = MutableStateFlow<List<DocumentSnapshot>>(emptyList())
+    private val vaccineData: StateFlow<List<DocumentSnapshot>> = _vaccineData
+
+
+    fun saveVaccineData( selectedDate:Long, vaccineName:String) {
 
     val userDocRef = usersCollection.document(userEmail)
 
@@ -49,26 +56,23 @@ fun saveVaccineData( selectedDate:Long, vaccineName:String) {
     }
 }
 
-fun getVaccineData(): MutableState<List<DocumentSnapshot>> {
+fun getVaccineData(): StateFlow<List<DocumentSnapshot>> {
 
-val fetchedData = mutableStateOf(emptyList<DocumentSnapshot>())
-
-    usersCollection.document(userEmail).collection("Vaccines").get()
-        .addOnSuccessListener { result ->
-
-            fetchedData.value=result.documents
-            for (document in result) {
-                Log.d("Data?", "${document.id} => ${document.data}")
-            }
-        }
-        .addOnFailureListener { exception ->
+viewModelScope.launch {
+        try {
+            val result = usersCollection.document(userEmail).collection("Vaccines")
+                .orderBy("Date", Query.Direction.DESCENDING).get().await()
+            _vaccineData.value = result.documents
+        } catch (exception: Exception) {
             Log.d("Data?", "Error getting documents: ", exception)
         }
-
-
-return fetchedData
-
+    }
+    return vaccineData
 }
+
+
+
+
 
 
 //         fun getUserName(email: String,callback: (String) -> Unit ){

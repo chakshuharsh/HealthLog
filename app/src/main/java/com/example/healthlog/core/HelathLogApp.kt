@@ -1,9 +1,11 @@
 package com.example.healthlog.core
 
+import PrescriptionScreen
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.healthlog.mainscreens.ProfileScreen
 
 
 import com.example.healthlog.mainscreens.homeScreen.HomeScreen
@@ -13,6 +15,7 @@ import com.example.healthlog.mainscreens.features.featuresScreen.allergy.Allergy
 import com.example.healthlog.mainscreens.features.featuresScreen.allergy.PreviousAllergyScreen
 import com.example.healthlog.mainscreens.features.featuresScreen.bloodPressure.BloodPressureScreen
 import com.example.healthlog.mainscreens.features.featuresScreen.bloodPressure.PreviousBloodPressureScreen
+import com.example.healthlog.mainscreens.features.featuresScreen.labreport.LabReportScreen
 import com.example.healthlog.mainscreens.features.featuresScreen.oxygen.OxygenScreen
 import com.example.healthlog.mainscreens.features.featuresScreen.oxygen.PreviousOxygenScreen
 import com.example.healthlog.mainscreens.features.featuresScreen.vaccine.NewVaccineScreen
@@ -47,6 +50,13 @@ sealed class Screen(val route: String) {
     data object  PreviousAllergyScreen:Screen("previousallergyscreen")
 
     data object  PreviousBloodPressureScreen:Screen("previousbloodpressurescreen")
+
+    data object PrescriptionScreen:Screen("prescriptionScreen")
+
+    data object LabReportScreen:Screen("labReportScreen")
+
+    data object ProfileScreen:Screen("ProfileScreen")
+
 
 
 }
@@ -105,9 +115,15 @@ fun HealthLogApp(navController: NavHostController,navigationManager: NavigationM
             composable(Screen.PreviousAllergyScreen.route){
                 PreviousAllergyScreen(navigationManager)
             }
-
-
-
+            composable(Screen.PrescriptionScreen.route){
+                PrescriptionScreen(navigationManager)
+            }
+            composable(Screen.LabReportScreen.route) {
+                LabReportScreen(navigationManager)
+            }
+            composable(Screen.ProfileScreen.route){
+                ProfileScreen(navigationManager)
+            }
         }
     }
 
