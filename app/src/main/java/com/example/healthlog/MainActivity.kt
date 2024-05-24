@@ -16,12 +16,18 @@ import com.example.healthlog.core.HealthLogApp
 import com.example.healthlog.core.HealthogAppState
 
 import com.example.healthlog.core.NavigationManager
+import com.example.healthlog.mainscreens.HomeScreen.HomeScreen
+import com.example.healthlog.mainscreens.commonui.BottomBar
+import com.example.healthlog.mainscreens.commonui.CommonCard
 import com.example.healthlog.mainscreens.features.FeatureListScreen
 import com.example.healthlog.mainscreens.features.featuresScreen.BloodPressure.BloodPressureScreen
 import com.example.healthlog.mainscreens.features.featuresScreen.Oxygen.OxygenScreen
 
 
 import com.example.healthlog.ui.theme.SimpleLoginScreenTheme
+import com.example.healthlog.ui_authentication.screens.forgotpassword.CodeVerification
+import com.example.healthlog.ui_authentication.screens.forgotpassword.MyComposable
+import com.example.healthlog.ui_authentication.screens.forgotpassword.emailVerification.EmailInput
 import com.example.healthlog.ui_authentication.screens.login.LoginScreen
 import com.example.healthlog.ui_authentication.screens.signup.PhotoUploadScreen
 import com.example.healthlog.ui_authentication.screens.signup.SignupScreen
@@ -44,7 +50,14 @@ class MainActivity : ComponentActivity() {
 //OxygenScreen(navigationManager)
 //BloodPressureScreen(navigationManager)
 //LoginScreen(navigationManager)
-            SignupScreen(navigationManager = navigationManager)
+//            SignupScreen(navigationManager = navigationManager)
+
+//            EmailInput(navigationManager = navigationManager)
+//            HomeScreen(navigationManager = navigationManager)
+//            BottomBar(navigationManager = navigationManager)
+//            CodeVerification()
+            MyComposable(navigationManager = navigationManager)
+
         }
     }
 }

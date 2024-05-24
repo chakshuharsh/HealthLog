@@ -1,11 +1,13 @@
 package com.example.healthlog.ui_authentication.screens.forgotpassword.emailVerification
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,6 +19,8 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -63,10 +67,51 @@ fun EmailInput(navigationManager: NavigationManager){
 
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
+    val darkerColor = Color(74, 86, 119)
+
+
+
+
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(darkerColor)
+            .background(Color.Transparent),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+
+
+        ) {
+
+        Image(
+            painter = painterResource(id = R.drawable.doctor3),
+            contentDescription = null,
+            modifier = Modifier.size(135.dp)
+
+
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Card(
+            modifier = Modifier
+                .fillMaxWidth(0.9f)
+                .padding(bottom =14.dp)
+                .fillMaxHeight(0.8f),
+            shape = RoundedCornerShape(36.dp),
+            colors = CardColors(
+                containerColor = Color.Black,
+                contentColor = Color.White,
+                disabledContainerColor = Color.Unspecified,
+                disabledContentColor = Color.Unspecified)
+        ) {
+
+
+
 
     Column(modifier= Modifier
         .fillMaxSize()
-        .padding(top = 10.dp, start = 15.dp, bottom = 3.dp, end = 15.dp)
+        .padding(top = 10.dp, start = 15.dp, bottom = 53.dp, end = 15.dp)
     ) {
         Row(
             modifier=Modifier.fillMaxWidth(),
@@ -79,7 +124,7 @@ fun EmailInput(navigationManager: NavigationManager){
                 text= stringResource(id = R.string.app_name),
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp,
-               color = Color.Black
+               color = Color.White
             )
 
             Text(
@@ -95,7 +140,7 @@ fun EmailInput(navigationManager: NavigationManager){
 
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+
 
 
         Column(
@@ -120,7 +165,7 @@ Image(
             Text(
                 text= stringResource(id = R.string.Forgot_Password),
                 fontWeight = FontWeight.Bold,
-                color = Color.Black,
+                color = Color.White,
                 fontSize = 30.sp,
                 textAlign = TextAlign.Center,
 
@@ -135,7 +180,7 @@ Image(
 
             Text(
                 text = stringResource(id = R.string.Email),
-                color = Color.Black,
+                color = Color.White,
                 fontSize = 17.sp,
                 modifier = Modifier
                     .align(Alignment.Start)
@@ -150,7 +195,7 @@ Image(
                     .padding(top = 8.dp, start = 16.dp)
                     .fillMaxWidth(0.9f)
                     .width(500.dp),
-                placeholder = { Text("ex :hello@email.com") },
+                placeholder = { Text("ex :hello@email.com",color = Color.White) },
                 textStyle = LocalTextStyle.current.copy(color = Color.Black),
                 singleLine = true,
                 shape = RoundedCornerShape(20.dp),
@@ -171,22 +216,23 @@ Image(
             Button(
                 onClick = {viewModel.emailVerification(emailStateVerificatrion.value)},
 
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4169E1)),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                 modifier = Modifier
                     .fillMaxWidth(0.9f)
                     .padding(16.dp),
 
-                shape = RoundedCornerShape(8.dp),
+                shape = RoundedCornerShape(16.dp),
 
             ) {
                 Text(
                     text = stringResource(id = R.string.Reset_Password),
-                    fontSize=20.sp
+                    fontSize=20.sp,
+                    color = Color.Black,
                 )
             }
             Text(
                 text= stringResource(id = R.string.Back_To_Login),
-                color = Color.Gray,
+                color = Color.LightGray,
                 modifier =Modifier.clickable(onClick = {navigationManager.navigateToLogin()}),
                 textDecoration = TextDecoration.Underline,
             )
@@ -195,6 +241,8 @@ Image(
 
 
     }
+            }
+        }
 
 
 }
