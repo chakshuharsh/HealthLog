@@ -128,7 +128,7 @@ fun BloodPressureScreen( navigationManager: NavigationManager) {
         ) {
 
             CommonCardNew(
-                onNewClick = {navigationManager.navigateToBloodPressureScreen()},
+                onNewClick = {},
                 onPreviousClick = {navigationManager.navigateToPreviousBloodPressureScreen()},
             )
 

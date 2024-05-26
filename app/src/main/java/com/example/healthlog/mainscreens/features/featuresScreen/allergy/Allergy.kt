@@ -92,7 +92,7 @@ fun AllergyScreen( navigationManager: NavigationManager){
             .fillMaxWidth()
         ) {
            CommonCardNew(
-               onNewClick = {navigationManager.navigateToAllergyScreen()},
+               onNewClick = {},
                onPreviousClick = {navigationManager.navigateToPreviousAllergyScreen()},
            )
 

@@ -1,6 +1,7 @@
 package com.example.healthlog.core
 
 import PrescriptionScreen
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -62,6 +63,7 @@ sealed class Screen(val route: String) {
 }
 
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun HealthLogApp(navController: NavHostController,navigationManager: NavigationManager,appState:HealthLogAppState){
 

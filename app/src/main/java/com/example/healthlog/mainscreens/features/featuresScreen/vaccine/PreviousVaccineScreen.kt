@@ -61,10 +61,10 @@ fun PreviousVaccineScreen(navigationManager: NavigationManager) {
 
             CommonCardNew(
                 onNewClick = {navigationManager.navigateToNewVaccineScreen()},
-                onPreviousClick = {navigationManager.navigateToPreviousVaccineScreen()},
+                onPreviousClick = {},
             )
 
-            Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(0.dp))
 
             LazyColumn(
                 modifier = Modifier.fillMaxWidth(),

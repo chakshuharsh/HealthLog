@@ -120,7 +120,7 @@ var isButtonEnabled= remember{mutableStateOf(false)}
     ) {
         Spacer(modifier = Modifier.height(0.dp))
         CommonCardNew(
-            onNewClick = {navigationManager.navigateToNewVaccineScreen()},
+            onNewClick = {},
             onPreviousClick = {navigationManager.navigateToPreviousVaccineScreen()},
         )
 

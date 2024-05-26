@@ -59,3 +59,13 @@ Main Things for Now
 -> Steps + Calories burnt
 -> UI for showcasing data fetched in features screen
 
+
+**on Hold**
+Camera permissions
+Camera intent and clicking a photo from camera or selecting one from gallery
+picture selected would be shown on the profile picture card and will be saved to storage
+And to load images we have to learn coil as well
+
+
+User will either click or select an image and then upload it to firebase storage which then will be fetched bu coil
+using coroutines

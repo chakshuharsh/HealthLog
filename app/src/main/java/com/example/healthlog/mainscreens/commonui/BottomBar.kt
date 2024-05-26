@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -39,7 +40,7 @@ fun BottomBar(navigationManager: NavigationManager){
 Card(
    colors= CardColors(containerColor = bottomBarColor, contentColor = Color.White, disabledContentColor = Color.Gray, disabledContainerColor = bottomBarColor),
             shape = RoundedCornerShape(16.dp),
-    modifier=Modifier.padding(start=5.dp,end=5.dp,bottom =5.dp)
+    modifier=Modifier.padding(start=5.dp,end=5.dp,bottom =5.dp).fillMaxWidth().height(40.dp)
 ) {
     BottomAppBar(
 

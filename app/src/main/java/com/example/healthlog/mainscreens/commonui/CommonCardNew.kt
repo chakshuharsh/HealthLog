@@ -52,7 +52,7 @@ Card(
 
                 onNewClick()
             },
-            modifier = Modifier.padding(start = 15.dp, top = 10.dp)
+            modifier = Modifier.padding(start = 15.dp, top = 0.dp)
                 .width(120.dp),
             colors = ButtonDefaults.textButtonColors(containerColor = Color(0xFF3A5FC0)),
             shape = RoundedCornerShape(12.dp)
@@ -71,7 +71,7 @@ Card(
 
                 onPreviousClick()
             },
-            modifier = Modifier.padding(end = 15.dp, top = 10.dp).width(130.dp),
+            modifier = Modifier.padding(end = 15.dp, top = 0.dp).width(130.dp),
             colors = ButtonDefaults.textButtonColors(containerColor = Color(0xFF3A5FC0)),
             shape = RoundedCornerShape(12.dp)
         ) {

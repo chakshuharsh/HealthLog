@@ -21,7 +21,7 @@ class LoginScreenViewModel(): ViewModel(){
 
         viewModelScope.launch(Dispatchers.IO) {
     try {
-       if(HealthLogAppState.isInternetAvailable == false){
+
         val authResult = auth.signInWithEmailAndPassword(email, password).await()
 
         if(authResult.user!=null) {
@@ -33,12 +33,12 @@ class LoginScreenViewModel(): ViewModel(){
 
             HealthLogAppState.useremail = email
 
-            Log.d("Login", "User logged in with UID: ${HealthLogAppState.uid}")
+            Log.d("Login", "User logged in with UID: ${HealthLogAppState.useremail}")
 
 
         }
 
-       }
+
     else{
         HealthLogAppState.isUserLoggedIn=false
 

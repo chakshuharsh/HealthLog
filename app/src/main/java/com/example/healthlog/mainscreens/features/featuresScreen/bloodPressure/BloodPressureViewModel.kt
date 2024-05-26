@@ -7,34 +7,41 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.healthlog.core.HealthLogAppState
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions.merge
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.sql.Timestamp
 
 class BloodPressureViewModel(): ViewModel() {
     private val usersCollection = HealthLogAppState.usersCollection
-    private val userEmail= HealthLogAppState.useremail // this has changed
+    private val userEmail= HealthLogAppState.useremail
+    private val _bloodPressureData = MutableStateFlow<List<DocumentSnapshot>>(emptyList())
+    private val bloodPressureData: StateFlow<List<DocumentSnapshot>> = _bloodPressureData
 
-    fun saveBloodPressureData( systolic:Int,diastolic:Int,pulse:Int,selectedDate:Long){
+    fun saveBloodPressureData( Systolic:Int,Diastolic:Int,Pulse:Int,SelectedDate:Long){
 
         val userDocRef = usersCollection.document(userEmail)
 
-        val timeStamp = Timestamp(selectedDate)
+        val timeStamp = Timestamp(SelectedDate)
 
-        val bloodPressureData = hashMapOf(
-           "Systolic" to systolic,
-            "Diastolic" to diastolic,
-            "Pulse" to pulse,
+        val bloodPressure = hashMapOf(
+           "Systolic" to Systolic,
+            "Diastolic" to Diastolic,
+            "Pulse" to Pulse,
             "Date" to timeStamp
         )
 
+
+
         viewModelScope.launch(Dispatchers.IO) {
             try{
-                userDocRef.collection("Blood Pressure").document().set(bloodPressureData,merge()).await()
+                userDocRef.collection("Blood Pressure").document().set(bloodPressure,merge()).await()
                 Log.d("DocSuccess", "DocumentSnapshot successfully written!")
-
+Log.d("emailid", userEmail)
             }
             catch (e:Exception){
                 Log.w("DocFailure", "Error writing document")
@@ -45,25 +52,20 @@ class BloodPressureViewModel(): ViewModel() {
 
     }
 
-    fun getBloodPressureData(): MutableState<List<DocumentSnapshot>> {
+    fun getBloodPressureData(): StateFlow<List<DocumentSnapshot>> {
 
-        val fetchedData = mutableStateOf(emptyList<DocumentSnapshot>())
 
-        usersCollection.document(userEmail).collection("/Users/chakshuharsh97@gmail.com/Blood Pressure ").get()
-
-            .addOnSuccessListener { result ->
-
-                fetchedData.value=result.documents
-                for (document in result) {
-                    Log.d("DataBSuccess?", "${document.id} => ${document.data}")
-                }
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val result = usersCollection.document(userEmail).collection("Blood Pressure")
+                    .orderBy("Date", Query.Direction.DESCENDING).get().await()
+                _bloodPressureData.value = result.documents
+            } catch (exception: Exception) {
+                Log.d("Data?", "Error getting documents: ", exception)
             }
-            .addOnFailureListener { exception ->
-                Log.d("DataBFail?", "Error getting documents: ", exception)
-            }
+        }
+        return bloodPressureData
 
-
-        return fetchedData
 
     }
 }

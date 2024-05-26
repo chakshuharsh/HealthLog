@@ -7,8 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.healthlog.core.HealthLogAppState
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions.merge
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.sql.Timestamp
@@ -16,6 +19,8 @@ import java.sql.Timestamp
 class AllergyViewModel():ViewModel() {
     private val usersCollection = HealthLogAppState.usersCollection
     private val userEmail= HealthLogAppState.useremail // this has changed
+    private val _allergyData = MutableStateFlow<List<DocumentSnapshot>>(emptyList())
+    private val allergyData: StateFlow<List<DocumentSnapshot>> = _allergyData
 
 fun saveAllergyData( allergyName:String,selectedDate:Long){
 
@@ -43,24 +48,21 @@ fun saveAllergyData( allergyName:String,selectedDate:Long){
 
 }
 
-    fun getAllergyData(): MutableState<List<DocumentSnapshot>> {
+    fun getAllergyData(): StateFlow<List<DocumentSnapshot>> {
 
-        val fetchedData = mutableStateOf(emptyList<DocumentSnapshot>())
 
-        usersCollection.document(userEmail).collection("Allergies").get()
-            .addOnSuccessListener { result ->
-
-                fetchedData.value=result.documents
-                for (document in result) {
-                    Log.d("Data?", "${document.id} => ${document.data}")
-                }
-            }
-            .addOnFailureListener { exception ->
+        viewModelScope.launch {
+            try {
+                val result = usersCollection.document(userEmail).collection("Allergies")
+                    .orderBy("Date", Query.Direction.DESCENDING).get().await()
+                _allergyData.value = result.documents
+            } catch (exception: Exception) {
                 Log.d("Data?", "Error getting documents: ", exception)
             }
+        }
 
 
-        return fetchedData
+        return allergyData
 
     }
 }
