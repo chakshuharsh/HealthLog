@@ -8,9 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 
 import com.example.healthlog.networking.Article
+import com.example.healthlog.networking.NewsRepository
 import com.example.healthlog.networking.NewsResponse
-import com.example.healthlog.networking.RetrofitInstance
-import com.example.healthlog.networking.RetrofitInstance.newsInstance
+import com.example.healthlog.networking.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -20,10 +20,8 @@ class InterestsScreenViewModel(): ViewModel() {
 
 
 
+private val repository:NewsRepository = NewsRepository(RetrofitClient.apiService)
 
-    private val apiService= RetrofitInstance.newsInstance
-
-    val news = MutableLiveData<NewsResponse?>()
 
 
 
@@ -32,41 +30,13 @@ class InterestsScreenViewModel(): ViewModel() {
     }
 
     @SuppressLint("SuspiciousIndentation")
-    fun fetchNews( ) {
-        Log.d("function called? ","Yes")
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val fetchedNews = apiService.getNews( "health", API_KEY,10)
+    private val _news = MutableLiveData<Result<NewsResponse>>()
+    val news: LiveData<Result<NewsResponse>> get() = _news
 
-
-                if(fetchedNews.isSuccessful){
-                  val newsResponse=fetchedNews.body()
-
-                    if (newsResponse != null) {
-                        // Update the MutableLiveData with the fetched news
-                        news.postValue(newsResponse)
-                        Log.d("News fetched?", "Yes")
-                    }
-
-
-                }
-
-                else{
-                   Log.d("News fetched failed?","${fetchedNews.code()}")
-                }
-
-
-
-
-            }
-            catch (e: IOException) {
-                Log.d("IO exception?","YES")
-            }
-            catch (e:HttpException){
-                Log.d("HTTP exception?","YES")
-            }
-
+    fun fetchHealthNews() {
+        viewModelScope.launch {
+            val result = repository.getHealthNews(API_KEY)
+            _news.value = result
         }
-
     }
 }

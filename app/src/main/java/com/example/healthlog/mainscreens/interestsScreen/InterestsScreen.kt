@@ -15,33 +15,35 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.healthlog.core.HealthLogAppState
 import com.example.healthlog.core.NavigationManager
 import com.example.healthlog.mainscreens.commonui.BottomBar
 import com.example.healthlog.mainscreens.commonui.topBarForFeatures
 import com.example.healthlog.networking.Article
+import com.example.healthlog.networking.NewsResponse
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InterestsScreen( navigationManager: NavigationManager){
    val viewModel = remember { InterestsScreenViewModel() }
+    val newsResponse by viewModel.news.observeAsState()
 
 
-    val newsList = remember { mutableStateOf<List<Article>>(emptyList()) } // Store the fetched news articles
-
-    viewModel.news.observeForever { response ->
-Log.d("data success?","$response")
-        newsList.value = response?.articles?: emptyList()
+   Log.d("InterestsScreen", "newsResponse: $newsResponse")
 
 
-    }
 
     Scaffold(
         topBar = {
@@ -55,7 +57,7 @@ Log.d("data success?","$response")
             Text(text = "hello this is Interests screen")
 
         Button(
-            onClick = {viewModel.fetchNews()}
+            onClick = {viewModel.fetchHealthNews()}
         ){
             Text(
                 text = "Fetch"
@@ -63,14 +65,14 @@ Log.d("data success?","$response")
         }
 
 
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Top,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {newsList.value.forEach { article ->
-                NewsItem(article = article)
-            }
-            }
+//            Column(
+//                modifier = Modifier.fillMaxSize(),
+//                verticalArrangement = Arrangement.Top,
+//                horizontalAlignment = Alignment.CenterHorizontally
+//            ) {newsList.value.forEach { article ->
+//                NewsItem(article = article)
+//            }
+//            }
 
 
         }
@@ -79,15 +81,15 @@ Log.d("data success?","$response")
 
 
 
-@Composable
-fun NewsItem(article: Article) {
-    Column(
-        modifier = Modifier.padding(16.dp)
-    ) {
-        Text(text = article.title.toString(), fontWeight = FontWeight.Bold)
-        if (!article.description.isNullOrBlank()) {
-            Text(text = article.title.toString(), fontWeight = FontWeight.Normal)
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-    }
-}
+//@Composable
+//fun NewsItem(article: Article) {
+//    Column(
+//        modifier = Modifier.padding(16.dp)
+//    ) {
+//        Text(text = article.title.toString(), fontWeight = FontWeight.Bold)
+//        if (!article.description.isNullOrBlank()) {
+//            Text(text = article.title.toString(), fontWeight = FontWeight.Normal)
+//        }
+//        Spacer(modifier = Modifier.height(8.dp))
+//    }
+//}

@@ -11,17 +11,14 @@ import retrofit2.http.Query
 const val API_KEY =ApiKeys.API_KEY
 
 interface ApiService {
-    @GET("/v2/everything?apiKey=${API_KEY}&Size=10")
+    @GET("v2/everything")
     suspend fun getNews(
-
-
-        @Query("category") query: String,
+        @Query("q") query: String = "health",
         @Query("apiKey") apiKey: String,
-        @Query("pageSize") pageSize: Int
-
-    ): Response<NewsResponse>
-
+        @Query("pageSize") pageSize: Int = 10
+    ): NewsResponse
 }
+
 
 
 //object RetrofitInstance{
@@ -39,15 +36,15 @@ interface ApiService {
 //
 //}
 
+object RetrofitClient {
+    private const val BASE_URL = "https://newsapi.org/"
 
-object RetrofitInstance{
-    val newsInstance:ApiService by lazy{
+    val apiService: ApiService by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)
-
-
     }
 }
+

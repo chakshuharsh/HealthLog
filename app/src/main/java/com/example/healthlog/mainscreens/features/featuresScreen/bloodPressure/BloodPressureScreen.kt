@@ -192,7 +192,7 @@ fun BloodPressureScreen( navigationManager: NavigationManager) {
                         state = listStateDiastolic,
                         modifier = Modifier.fillMaxHeight()
                     ) {
-//
+
                         items(count = Int.MAX_VALUE) { index ->
                             SelectableNumber(
                                 number = numbersList[index],
