@@ -37,7 +37,8 @@ class VaccineScreenViewModel():ViewModel() {
 
     val vaccine = hashMapOf(
         "Name" to vaccineName,
-        "Date" to timeStamp
+        "Date" to timeStamp,
+        "Name" to "User"
     )
     Log.d("vaccinehashmap?", "Yes")
     Log.d("email?", userEmail)
@@ -62,15 +63,35 @@ viewModelScope.launch {
         try {
             val result = usersCollection.document(userEmail).collection("Vaccines")
                 .orderBy("Date", Query.Direction.DESCENDING).get().await()
-            _vaccineData.value = result.documents
+
+            if (result.documents.size != _vaccineData.value.size) {
+                _vaccineData.value = result.documents
+            }
+//            _vaccineData.value = result.documents
         } catch (exception: Exception) {
-            Log.d("Data?", "Error getting documents: ", exception)
+            Log.d("Data fetching error?", "Error getting documents: ", exception)
         }
     }
     return vaccineData
 }
 
+    fun deleteVaccineData(documentId: String) {
+        viewModelScope.launch {
 
+            try {
+                usersCollection.document(userEmail).collection("Vaccines").document(documentId)
+                    .delete()
+                _vaccineData.value = _vaccineData.value.filterNot { it.id == documentId }
+// creates a new list with the deleted item removed by using the filterNot function and the document ID to filter out the item with the matching ID.
+
+            }
+            catch (exception: Exception) {
+                Log.d("Vaccine Delete?", "Error deleting documents: ", exception)
+
+            }
+        }
+
+    }
 
 
 

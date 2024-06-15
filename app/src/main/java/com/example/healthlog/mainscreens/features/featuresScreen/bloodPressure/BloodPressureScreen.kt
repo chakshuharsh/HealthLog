@@ -57,11 +57,17 @@ import com.example.healthlog.mainscreens.features.featuresScreen.oxygen.OxygenVi
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+//TODO
+// Delete and Edit for BloodPressureScreen
+// Data Save for same
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BloodPressureScreen( navigationManager: NavigationManager) {
+
+    //date saved in firestore is in milliseconds
 
     val viewModel = remember{ BloodPressureViewModel() }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -157,10 +163,10 @@ fun BloodPressureScreen( navigationManager: NavigationManager) {
                         state = listStateSystolic,
                         modifier = Modifier.fillMaxHeight()
                     ) {
-//
+
 
                         items(count = Int.MAX_VALUE) { index ->
-//
+
                             SelectableNumber(
                                 number = numbersList[index],
                                 selectedNumber = selectedNumberSystolic.value,
@@ -287,7 +293,7 @@ fun BloodPressureScreen( navigationManager: NavigationManager) {
                 }
 
                 Text(
-                    text = formattedDate,
+                    text =formattedDate,
                     fontSize = 18.sp,
                     color = Color.Black,
                     modifier = Modifier

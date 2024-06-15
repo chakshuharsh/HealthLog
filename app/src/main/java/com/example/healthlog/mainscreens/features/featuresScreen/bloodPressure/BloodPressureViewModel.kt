@@ -23,6 +23,7 @@ class BloodPressureViewModel(): ViewModel() {
     private val bloodPressureData: StateFlow<List<DocumentSnapshot>> = _bloodPressureData
 
     fun saveBloodPressureData( Systolic:Int,Diastolic:Int,Pulse:Int,SelectedDate:Long){
+Log.d("FUNCTION CALLED","yes")
 
         val userDocRef = usersCollection.document(userEmail)
 
@@ -41,7 +42,6 @@ class BloodPressureViewModel(): ViewModel() {
             try{
                 userDocRef.collection("Blood Pressure").document().set(bloodPressure,merge()).await()
                 Log.d("DocSuccess", "DocumentSnapshot successfully written!")
-Log.d("emailid", userEmail)
             }
             catch (e:Exception){
                 Log.w("DocFailure", "Error writing document")
@@ -55,17 +55,38 @@ Log.d("emailid", userEmail)
     fun getBloodPressureData(): StateFlow<List<DocumentSnapshot>> {
 
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             try {
                 val result = usersCollection.document(userEmail).collection("Blood Pressure")
                     .orderBy("Date", Query.Direction.DESCENDING).get().await()
-                _bloodPressureData.value = result.documents
+                //Check if data has changed
+
+                if (result.documents.size != _bloodPressureData.value.size) {
+                    _bloodPressureData.value = result.documents
+                }
+
             } catch (exception: Exception) {
-                Log.d("Data?", "Error getting documents: ", exception)
+                Log.d(" BP Not fetched?", "Error getting documents: ", exception)
             }
         }
         return bloodPressureData
 
 
     }
+    fun deleteBloodPressureData(documentId: String){
+        viewModelScope.launch {
+            try{
+                usersCollection.document(userEmail).collection("Blood Pressure").document(documentId)
+                    .delete()
+                _bloodPressureData.value = _bloodPressureData.value.filterNot { it.id == documentId }
+            }
+            catch (exception: Exception) {
+                Log.d("BP Delete?", "Error deleting documents: ", exception)
+
+            }
+        }
+
+
+    }
+
 }

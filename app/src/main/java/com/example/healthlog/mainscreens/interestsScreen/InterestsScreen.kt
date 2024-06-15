@@ -32,7 +32,7 @@ import com.example.healthlog.core.NavigationManager
 import com.example.healthlog.mainscreens.commonui.BottomBar
 import com.example.healthlog.mainscreens.commonui.topBarForFeatures
 import com.example.healthlog.networking.Article
-import com.example.healthlog.networking.NewsResponse
+import com.example.healthlog.networking.NewsResponse 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

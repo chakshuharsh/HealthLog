@@ -74,7 +74,7 @@ fun topBarForFeatures(
                         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                         contentDescription = "Menu",
                         tint = Color.Black,
-                        modifier=Modifier.clickable (onClick = {navigationManager.navigateToHomeScreen()})
+                        modifier=Modifier.clickable (onClick = {navigationManager.navigateToBackStack()})
                             .padding(start=3.dp,top=5.dp).size(30.dp)
                     )
             },
