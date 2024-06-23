@@ -2,10 +2,22 @@ package com.example.healthlog.core
 
 import PrescriptionScreen
 import android.annotation.SuppressLint
+import android.app.Application
+import android.content.Context
+import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.healthlog.data.UserLoginSession
 import com.example.healthlog.mainscreens.ProfileScreen
 
 
@@ -25,6 +37,9 @@ import com.example.healthlog.mainscreens.features.featuresScreen.vaccine.Previou
 import com.example.healthlog.ui_authentication.screens.forgotpassword.emailVerification.EmailInput
 import com.example.healthlog.ui_authentication.screens.login.LoginScreen
 import com.example.healthlog.ui_authentication.screens.signup.SignupScreen
+import com.google.firebase.logger.Logger
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 sealed class Screen(val route: String) {
     data object Login : Screen("login")
@@ -66,10 +81,28 @@ sealed class Screen(val route: String) {
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun HealthLogApp(navController: NavHostController,navigationManager: NavigationManager,appState:HealthLogAppState){
+    Log.d("working fine 0", "Yes")
+     val healthLogReleaseApplication = HealthLogAppState.healthReleaseApplication
+    Log.d("working fine 1", "Yes")
+     val userLoginSession=healthLogReleaseApplication.userLoginSession
+    Log.d("working fine 2", "Yes")
+        val coroutineScope = rememberCoroutineScope()
+    val startDestination = remember { mutableStateOf(Screen.Login.route) }
+    LaunchedEffect(Unit) {
+        coroutineScope.launch {
+            userLoginSession.isUserLoggedIn.collect { isUserLoggedIn ->
+                startDestination.value = if (isUserLoggedIn) {
+                    Screen.HomeScreen.route
+                } else {
+                    Screen.Login.route
+                }
 
-    val startDestination = if(appState.isUserLoggedIn) Screen.HomeScreen.route else Screen.Login.route
+            }
+        }
+    }
 
-        NavHost(navController, startDestination = startDestination){
+
+        NavHost(navController, startDestination = startDestination.value){
             composable(Screen.Login.route) {
                 LoginScreen(navigationManager)
             }

@@ -30,13 +30,13 @@ private val repository:NewsRepository = NewsRepository(RetrofitClient.apiService
     }
 
     @SuppressLint("SuspiciousIndentation")
-    private val _news = MutableLiveData<Result<NewsResponse>>()
-    val news: LiveData<Result<NewsResponse>> get() = _news
+    private val _news = MutableLiveData<List<NewsResponse>>(emptyList())
+    val news: MutableLiveData<List<NewsResponse>> get() = _news
 
     fun fetchHealthNews() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getHealthNews(API_KEY)
-            _news.value = result
+            _news.value = result.value
         }
     }
 }

@@ -2,6 +2,7 @@ package com.example.healthlog.ui_authentication.screens.login
 
 
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -60,6 +61,7 @@ import com.example.healthlog.core.HealthLogAppState
 import com.example.healthlog.core.NavigationManager
 
 
+@SuppressLint("SuspiciousIndentation")
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LoginScreen( navigationManager: NavigationManager) {

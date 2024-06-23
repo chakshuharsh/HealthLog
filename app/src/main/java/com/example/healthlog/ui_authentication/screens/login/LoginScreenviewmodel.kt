@@ -1,17 +1,27 @@
 package com.example.healthlog.ui_authentication.screens.login
 
+
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 
 import com.example.healthlog.core.HealthLogAppState
+import com.example.healthlog.core.HealthLogReleaseApplication
+
 import com.example.healthlog.core.NavigationManager
+import com.example.healthlog.data.UserLoginSession
+
 
 import kotlinx.coroutines.Dispatchers
+
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class LoginScreenViewModel(): ViewModel(){
+
+
+private val healthLogReleaseApplication = HealthLogAppState.healthReleaseApplication
+    private val userLoginSession=healthLogReleaseApplication.userLoginSession
 
 
     private val auth = HealthLogAppState.auth
@@ -35,7 +45,7 @@ class LoginScreenViewModel(): ViewModel(){
 
             Log.d("Login", "User logged in with UID: ${HealthLogAppState.useremail}")
 
-
+userLoginSession.saveUserLoginState(true)
         }
 
 

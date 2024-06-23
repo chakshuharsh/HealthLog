@@ -1,6 +1,7 @@
 package com.example.healthlog.networking
 
 
+import androidx.lifecycle.MutableLiveData
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,9 +15,11 @@ interface ApiService {
     @GET("v2/everything")
     suspend fun getNews(
         @Query("q") query: String = "health",
+        @Query("q") query1: String = "Fitness",
+        @Query("q") query2: String = "Disease",
         @Query("apiKey") apiKey: String,
         @Query("pageSize") pageSize: Int = 10
-    ): NewsResponse
+    ): MutableLiveData<List<NewsResponse>>
 }
 
 

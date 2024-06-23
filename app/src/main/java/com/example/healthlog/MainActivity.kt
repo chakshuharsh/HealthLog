@@ -5,6 +5,7 @@ import PrescriptionScreen
 import android.content.Context
 import android.os.Bundle
 import android.provider.ContactsContract.Profile
+import android.util.Log
 
 
 import androidx.activity.ComponentActivity
@@ -16,12 +17,17 @@ import androidx.camera.view.PreviewView
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.compose.rememberNavController
 
 
@@ -31,6 +37,10 @@ import com.example.healthlog.core.HealthLogApp
 
 import com.example.healthlog.core.NavigationManager
 import com.example.healthlog.core.HealthLogAppState
+import com.example.healthlog.core.HealthLogReleaseApplication
+
+import com.example.healthlog.core.Screen
+import com.example.healthlog.data.UserLoginSession
 import com.example.healthlog.mainscreens.ProfileScreen
 import com.example.healthlog.mainscreens.features.featuresScreen.bloodPressure.PreviousBloodPressureScreen
 import com.example.healthlog.mainscreens.features.featuresScreen.labreport.LabReportScreen
@@ -39,46 +49,37 @@ import com.example.healthlog.mainscreens.features.featuresScreen.vaccine.NewVacc
 import com.example.healthlog.mainscreens.features.featuresScreen.vaccine.PreviousVaccineScreen
 import com.example.healthlog.mainscreens.homeScreen.AddingScreen
 import com.example.healthlog.mainscreens.homeScreen.HomeScreen
+import kotlinx.coroutines.launch
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 
 class MainActivity : ComponentActivity() {
     private lateinit var connectivityObserver: ConnectivityObserver
+
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_login_session")
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-
-//        connectivityObserver = NetworkConnectivityObserver(applicationContext)
+var healthLogReleaseApplication:HealthLogReleaseApplication=HealthLogReleaseApplication()
+var userLoginSession=UserLoginSession(dataStore)
+        Log.d("working fine -1", "Yes")
 
         setContent {
-//            val status by connectivityObserver.observe().collectAsState(
-//                initial = ConnectivityObserver.Status.Unavailable
-//            )
-//            Log.d("value of status is", "$status")
 
             val navController = rememberNavController()
+
             val navigationManager = NavigationManager(navController)
+
+
+
+            Log.d("working fine -1.2", "Yes")
             HealthLogApp(navController, navigationManager, HealthLogAppState)
 
-//            PreviousBloodPressureScreen(navigationManager)
-//            CameraPreviewScreen()
-//NewVaccineScreen(navigationManager)
-//            PreviousVaccineScreen(navigationManager)
 
 
 
 
-//            Box(
 
-//                modifier = Modifier.fillMaxSize(),
-//                contentAlignment = Alignment.Center
-//            )
-//            {
-//                Log.d("value of status is", "$status")
-//                Text(text = "Network Status: $status")
-//            }
-//        }
         }
     }
 }
